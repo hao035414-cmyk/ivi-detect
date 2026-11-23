@@ -1,0 +1,3761 @@
+{
+ "dataset": {
+  "images": 160,
+  "ng": 124,
+  "ok": 36,
+  "defect_instances": 310,
+  "resolution": "640x480",
+  "px_per_mm": 12.0
+ },
+ "config": {
+  "min_area": 80,
+  "score_thr": 0.58,
+  "otsu_bias": 0,
+  "lo_ksize": 81,
+  "k_h": 2.5,
+  "sigma_l": 2.5,
+  "k_l": 3.0,
+  "px_per_mm": 12.0,
+  "fn_cost": 10.0,
+  "fp_cost": 1.0
+ },
+ "models": {
+  "baseline_tuned": {
+   "images": 160,
+   "ng_images": 124,
+   "ok_images": 36,
+   "tp": 115,
+   "fp": 363,
+   "fn": 186,
+   "precision": 0.2406,
+   "recall": 0.3821,
+   "f1": 0.2953,
+   "miss_rate": 0.6179,
+   "ng_image_recall": 1.0,
+   "ok_false_alarm": 1.0,
+   "cost": 2223.0,
+   "avg_ms": 8.41,
+   "p95_ms": 9.6,
+   "fps": 119.0,
+   "failures": [
+    {
+     "file": "0001_NG.png",
+     "gt": 4,
+     "pred": 2,
+     "fn": 3,
+     "fp": 1,
+     "types": [
+      "oil",
+      "scratch",
+      "oil",
+      "scratch"
+     ],
+     "contrasts": [
+      19.4,
+      47.9,
+      21.1,
+      43.2
+     ],
+     "areas_px": [
+      3674,
+      126,
+      5821,
+      120
+     ]
+    },
+    {
+     "file": "0002_NG.png",
+     "gt": 4,
+     "pred": 6,
+     "fn": 1,
+     "fp": 3,
+     "types": [
+      "pit",
+      "pit",
+      "oil",
+      "stain"
+     ],
+     "contrasts": [
+      52.1,
+      52.1,
+      14.0,
+      21.6
+     ],
+     "areas_px": [
+      167,
+      76,
+      1783,
+      1201
+     ]
+    },
+    {
+     "file": "0004_NG.png",
+     "gt": 3,
+     "pred": 3,
+     "fn": 2,
+     "fp": 2,
+     "types": [
+      "oil",
+      "pit",
+      "oil"
+     ],
+     "contrasts": [
+      12.4,
+      60.3,
+      20.3
+     ],
+     "areas_px": [
+      3561,
+      84,
+      5138
+     ]
+    },
+    {
+     "file": "0005_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 3,
+     "fp": 2,
+     "types": [
+      "oil",
+      "oil",
+      "stain"
+     ],
+     "contrasts": [
+      12.6,
+      16.4,
+      28.3
+     ],
+     "areas_px": [
+      2359,
+      2458,
+      293
+     ]
+    },
+    {
+     "file": "0007_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 3,
+     "fp": 2,
+     "types": [
+      "oil",
+      "scratch",
+      "pit"
+     ],
+     "contrasts": [
+      21.2,
+      41.4,
+      68.5
+     ],
+     "areas_px": [
+      5015,
+      98,
+      70
+     ]
+    },
+    {
+     "file": "0008_NG.png",
+     "gt": 1,
+     "pred": 1,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "oil"
+     ],
+     "contrasts": [
+      19.4
+     ],
+     "areas_px": [
+      2145
+     ]
+    },
+    {
+     "file": "0009_NG.png",
+     "gt": 3,
+     "pred": 1,
+     "fn": 3,
+     "fp": 1,
+     "types": [
+      "stain",
+      "stain",
+      "stain"
+     ],
+     "contrasts": [
+      22.9,
+      28.0,
+      23.7
+     ],
+     "areas_px": [
+      877,
+      1041,
+      497
+     ]
+    },
+    {
+     "file": "0012_NG.png",
+     "gt": 1,
+     "pred": 1,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "pit"
+     ],
+     "contrasts": [
+      50.7
+     ],
+     "areas_px": [
+      78
+     ]
+    },
+    {
+     "file": "0013_NG.png",
+     "gt": 1,
+     "pred": 2,
+     "fn": 0,
+     "fp": 1,
+     "types": [
+      "stain",
+      "scratch"
+     ],
+     "contrasts": [
+      19.4,
+      38.7
+     ],
+     "areas_px": [
+      749,
+      274
+     ]
+    },
+    {
+     "file": "0015_NG.png",
+     "gt": 2,
+     "pred": 8,
+     "fn": 0,
+     "fp": 6,
+     "types": [
+      "stain",
+      "oil"
+     ],
+     "contrasts": [
+      18.4,
+      20.6
+     ],
+     "areas_px": [
+      1565,
+      3230
+     ]
+    },
+    {
+     "file": "0017_NG.png",
+     "gt": 1,
+     "pred": 1,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "scratch"
+     ],
+     "contrasts": [
+      55.4
+     ],
+     "areas_px": [
+      64
+     ]
+    },
+    {
+     "file": "0018_NG.png",
+     "gt": 2,
+     "pred": 2,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "oil",
+      "pit",
+      "oil"
+     ],
+     "contrasts": [
+      20.2,
+      56.4,
+      16.0
+     ],
+     "areas_px": [
+      3680,
+      139,
+      3470
+     ]
+    },
+    {
+     "file": "0019_NG.png",
+     "gt": 2,
+     "pred": 5,
+     "fn": 0,
+     "fp": 3,
+     "types": [
+      "pit",
+      "stain"
+     ],
+     "contrasts": [
+      41.6,
+      30.6
+     ],
+     "areas_px": [
+      90,
+      1201
+     ]
+    },
+    {
+     "file": "0020_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 2,
+     "fp": 1,
+     "types": [
+      "oil",
+      "scratch",
+      "scratch"
+     ],
+     "contrasts": [
+      20.5,
+      44.2,
+      36.0
+     ],
+     "areas_px": [
+      2981,
+      403,
+      99
+     ]
+    },
+    {
+     "file": "0024_NG.png",
+     "gt": 1,
+     "pred": 2,
+     "fn": 1,
+     "fp": 2,
+     "types": [
+      "oil"
+     ],
+     "contrasts": [
+      14.7
+     ],
+     "areas_px": [
+      2601
+     ]
+    },
+    {
+     "file": "0025_NG.png",
+     "gt": 4,
+     "pred": 6,
+     "fn": 0,
+     "fp": 2,
+     "types": [
+      "scratch",
+      "stain",
+      "pit",
+      "stain"
+     ],
+     "contrasts": [
+      55.5,
+      28.7,
+      60.5,
+      20.9
+     ],
+     "areas_px": [
+      372,
+      1565,
+      112,
+      1201
+     ]
+    },
+    {
+     "file": "0027_NG.png",
+     "gt": 4,
+     "pred": 3,
+     "fn": 2,
+     "fp": 1,
+     "types": [
+      "oil",
+      "scratch",
+      "scratch",
+      "stain"
+     ],
+     "contrasts": [
+      21.0,
+      29.1,
+      37.8,
+      28.7
+     ],
+     "areas_px": [
+      4477,
+      63,
+      350,
+      385
+     ]
+    },
+    {
+     "file": "0028_NG.png",
+     "gt": 3,
+     "pred": 4,
+     "fn": 2,
+     "fp": 3,
+     "types": [
+      "oil",
+      "pit",
+      "stain"
+     ],
+     "contrasts": [
+      12.8,
+      44.4,
+      27.4
+     ],
+     "areas_px": [
+      1852,
+      87,
+      385
+     ]
+    },
+    {
+     "file": "0030_NG.png",
+     "gt": 1,
+     "pred": 1,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "pit"
+     ],
+     "contrasts": [
+      53.3
+     ],
+     "areas_px": [
+      80
+     ]
+    },
+    {
+     "file": "0031_NG.png",
+     "gt": 3,
+     "pred": 1,
+     "fn": 3,
+     "fp": 1,
+     "types": [
+      "scratch",
+      "oil",
+      "pit"
+     ],
+     "contrasts": [
+      39.0,
+      21.2,
+      61.3
+     ],
+     "areas_px": [
+      42,
+      2064,
+      64
+     ]
+    },
+    {
+     "file": "0032_NG.png",
+     "gt": 3,
+     "pred": 3,
+     "fn": 3,
+     "fp": 3,
+     "types": [
+      "stain",
+      "oil",
+      "pit"
+     ],
+     "contrasts": [
+      19.5,
+      14.4,
+      50.6
+     ],
+     "areas_px": [
+      609,
+      2343,
+      196
+     ]
+    },
+    {
+     "file": "0033_NG.png",
+     "gt": 4,
+     "pred": 3,
+     "fn": 2,
+     "fp": 1,
+     "types": [
+      "stain",
+      "scratch",
+      "stain",
+      "oil"
+     ],
+     "contrasts": [
+      19.1,
+      32.2,
+      33.7,
+      20.0
+     ],
+     "areas_px": [
+      1565,
+      460,
+      877,
+      4745
+     ]
+    },
+    {
+     "file": "0036_NG.png",
+     "gt": 1,
+     "pred": 1,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "stain"
+     ],
+     "contrasts": [
+      19.0
+     ],
+     "areas_px": [
+      1369
+     ]
+    },
+    {
+     "file": "0037_NG.png",
+     "gt": 4,
+     "pred": 7,
+     "fn": 2,
+     "fp": 5,
+     "types": [
+      "scratch",
+      "pit",
+      "scratch",
+      "scratch"
+     ],
+     "contrasts": [
+      30.5,
+      50.1,
+      36.1,
+      26.2
+     ],
+     "areas_px": [
+      320,
+      166,
+      94,
+      72
+     ]
+    },
+    {
+     "file": "0041_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 3,
+     "fp": 2,
+     "types": [
+      "oil",
+      "oil",
+      "pit"
+     ],
+     "contrasts": [
+      15.5,
+      13.4,
+      40.0
+     ],
+     "areas_px": [
+      1462,
+      4153,
+      78
+     ]
+    },
+    {
+     "file": "0042_NG.png",
+     "gt": 3,
+     "pred": 4,
+     "fn": 1,
+     "fp": 2,
+     "types": [
+      "scratch",
+      "pit",
+      "stain"
+     ],
+     "contrasts": [
+      47.7,
+      56.9,
+      27.8
+     ],
+     "areas_px": [
+      272,
+      71,
+      1369
+     ]
+    },
+    {
+     "file": "0043_NG.png",
+     "gt": 2,
+     "pred": 3,
+     "fn": 1,
+     "fp": 2,
+     "types": [
+      "stain",
+      "stain"
+     ],
+     "contrasts": [
+      19.3,
+      24.9
+     ],
+     "areas_px": [
+      1041,
+      877
+     ]
+    },
+    {
+     "file": "0044_NG.png",
+     "gt": 2,
+     "pred": 2,
+     "fn": 2,
+     "fp": 2,
+     "types": [
+      "oil",
+      "oil"
+     ],
+     "contrasts": [
+      21.6,
+      16.0
+     ],
+     "areas_px": [
+      3833,
+      6176
+     ]
+    },
+    {
+     "file": "0045_NG.png",
+     "gt": 1,
+     "pred": 1,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "oil"
+     ],
+     "contrasts": [
+      17.5
+     ],
+     "areas_px": [
+      5680
+     ]
+    },
+    {
+     "file": "0046_NG.png",
+     "gt": 4,
+     "pred": 5,
+     "fn": 2,
+     "fp": 3,
+     "types": [
+      "pit",
+      "oil",
+      "oil",
+      "pit"
+     ],
+     "contrasts": [
+      57.9,
+      14.0,
+      21.3,
+      34.6
+     ],
+     "areas_px": [
+      87,
+      5352,
+      3007,
+      197
+     ]
+    },
+    {
+     "file": "0047_NG.png",
+     "gt": 4,
+     "pred": 7,
+     "fn": 1,
+     "fp": 4,
+     "types": [
+      "scratch",
+      "stain",
+      "stain",
+      "stain"
+     ],
+     "contrasts": [
+      36.5,
+      32.3,
+      32.3,
+      26.8
+     ],
+     "areas_px": [
+      594,
+      1369,
+      497,
+      385
+     ]
+    },
+    {
+     "file": "0048_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 2,
+     "fp": 1,
+     "types": [
+      "oil",
+      "stain",
+      "scratch"
+     ],
+     "contrasts": [
+      17.9,
+      25.9,
+      46.6
+     ],
+     "areas_px": [
+      2362,
+      1369,
+      198
+     ]
+    },
+    {
+     "file": "0049_NG.png",
+     "gt": 1,
+     "pred": 1,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "stain"
+     ],
+     "contrasts": [
+      25.6
+     ],
+     "areas_px": [
+      293
+     ]
+    },
+    {
+     "file": "0050_NG.png",
+     "gt": 2,
+     "pred": 1,
+     "fn": 2,
+     "fp": 1,
+     "types": [
+      "scratch",
+      "stain"
+     ],
+     "contrasts": [
+      34.1,
+      19.3
+     ],
+     "areas_px": [
+      30,
+      609
+     ]
+    },
+    {
+     "file": "0051_NG.png",
+     "gt": 1,
+     "pred": 2,
+     "fn": 0,
+     "fp": 1,
+     "types": [
+      "scratch"
+     ],
+     "contrasts": [
+      35.0
+     ],
+     "areas_px": [
+      176
+     ]
+    },
+    {
+     "file": "0053_NG.png",
+     "gt": 2,
+     "pred": 1,
+     "fn": 2,
+     "fp": 1,
+     "types": [
+      "oil",
+      "oil"
+     ],
+     "contrasts": [
+      19.8,
+      19.6
+     ],
+     "areas_px": [
+      4250,
+      2845
+     ]
+    },
+    {
+     "file": "0054_NG.png",
+     "gt": 4,
+     "pred": 4,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "scratch",
+      "scratch",
+      "oil",
+      "stain"
+     ],
+     "contrasts": [
+      56.9,
+      46.1,
+      16.5,
+      28.6
+     ],
+     "areas_px": [
+      118,
+      507,
+      2243,
+      749
+     ]
+    },
+    {
+     "file": "0055_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 2,
+     "fp": 1,
+     "types": [
+      "pit",
+      "stain",
+      "stain"
+     ],
+     "contrasts": [
+      50.5,
+      20.4,
+      31.6
+     ],
+     "areas_px": [
+      67,
+      877,
+      1201
+     ]
+    },
+    {
+     "file": "0056_NG.png",
+     "gt": 3,
+     "pred": 4,
+     "fn": 2,
+     "fp": 3,
+     "types": [
+      "oil",
+      "scratch",
+      "stain"
+     ],
+     "contrasts": [
+      12.0,
+      53.1,
+      20.9
+     ],
+     "areas_px": [
+      1282,
+      382,
+      497
+     ]
+    },
+    {
+     "file": "0057_NG.png",
+     "gt": 3,
+     "pred": 6,
+     "fn": 2,
+     "fp": 5,
+     "types": [
+      "oil",
+      "stain",
+      "scratch"
+     ],
+     "contrasts": [
+      18.0,
+      18.2,
+      46.9
+     ],
+     "areas_px": [
+      2626,
+      1041,
+      206
+     ]
+    },
+    {
+     "file": "0058_NG.png",
+     "gt": 1,
+     "pred": 3,
+     "fn": 1,
+     "fp": 3,
+     "types": [
+      "scratch"
+     ],
+     "contrasts": [
+      40.6
+     ],
+     "areas_px": [
+      57
+     ]
+    },
+    {
+     "file": "0059_NG.png",
+     "gt": 2,
+     "pred": 4,
+     "fn": 2,
+     "fp": 4,
+     "types": [
+      "scratch",
+      "scratch"
+     ],
+     "contrasts": [
+      52.8,
+      54.1
+     ],
+     "areas_px": [
+      103,
+      291
+     ]
+    },
+    {
+     "file": "0060_NG.png",
+     "gt": 1,
+     "pred": 3,
+     "fn": 0,
+     "fp": 2,
+     "types": [
+      "pit"
+     ],
+     "contrasts": [
+      54.7
+     ],
+     "areas_px": [
+      91
+     ]
+    },
+    {
+     "file": "0061_NG.png",
+     "gt": 4,
+     "pred": 5,
+     "fn": 2,
+     "fp": 3,
+     "types": [
+      "pit",
+      "scratch",
+      "stain",
+      "oil"
+     ],
+     "contrasts": [
+      42.6,
+      47.3,
+      24.6,
+      14.4
+     ],
+     "areas_px": [
+      194,
+      305,
+      385,
+      2268
+     ]
+    },
+    {
+     "file": "0062_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 3,
+     "fp": 2,
+     "types": [
+      "scratch",
+      "oil",
+      "oil"
+     ],
+     "contrasts": [
+      52.2,
+      16.1,
+      20.9
+     ],
+     "areas_px": [
+      176,
+      4677,
+      3670
+     ]
+    },
+    {
+     "file": "0063_NG.png",
+     "gt": 2,
+     "pred": 1,
+     "fn": 2,
+     "fp": 1,
+     "types": [
+      "scratch",
+      "scratch"
+     ],
+     "contrasts": [
+      43.0,
+      30.1
+     ],
+     "areas_px": [
+      511,
+      434
+     ]
+    },
+    {
+     "file": "0064_NG.png",
+     "gt": 4,
+     "pred": 3,
+     "fn": 3,
+     "fp": 2,
+     "types": [
+      "scratch",
+      "scratch",
+      "stain",
+      "stain"
+     ],
+     "contrasts": [
+      29.5,
+      40.6,
+      33.7,
+      28.5
+     ],
+     "areas_px": [
+      272,
+      78,
+      609,
+      609
+     ]
+    },
+    {
+     "file": "0065_NG.png",
+     "gt": 3,
+     "pred": 5,
+     "fn": 1,
+     "fp": 3,
+     "types": [
+      "oil",
+      "stain",
+      "oil"
+     ],
+     "contrasts": [
+      15.4,
+      34.0,
+      15.2
+     ],
+     "areas_px": [
+      2175,
+      293,
+      2878
+     ]
+    },
+    {
+     "file": "0067_NG.png",
+     "gt": 2,
+     "pred": 1,
+     "fn": 2,
+     "fp": 1,
+     "types": [
+      "scratch",
+      "oil"
+     ],
+     "contrasts": [
+      38.9,
+      17.5
+     ],
+     "areas_px": [
+      50,
+      2853
+     ]
+    },
+    {
+     "file": "0068_NG.png",
+     "gt": 4,
+     "pred": 2,
+     "fn": 3,
+     "fp": 1,
+     "types": [
+      "oil",
+      "pit",
+      "stain",
+      "stain"
+     ],
+     "contrasts": [
+      14.0,
+      42.5,
+      25.7,
+      18.8
+     ],
+     "areas_px": [
+      2742,
+      142,
+      749,
+      1201
+     ]
+    },
+    {
+     "file": "0069_NG.png",
+     "gt": 1,
+     "pred": 2,
+     "fn": 1,
+     "fp": 2,
+     "types": [
+      "stain"
+     ],
+     "contrasts": [
+      23.0
+     ],
+     "areas_px": [
+      1041
+     ]
+    },
+    {
+     "file": "0070_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 2,
+     "fp": 1,
+     "types": [
+      "oil",
+      "pit",
+      "pit"
+     ],
+     "contrasts": [
+      14.7,
+      37.9,
+      60.3
+     ],
+     "areas_px": [
+      5033,
+      60,
+      148
+     ]
+    },
+    {
+     "file": "0071_NG.png",
+     "gt": 2,
+     "pred": 4,
+     "fn": 1,
+     "fp": 3,
+     "types": [
+      "stain",
+      "oil"
+     ],
+     "contrasts": [
+      24.3,
+      17.8
+     ],
+     "areas_px": [
+      497,
+      1749
+     ]
+    },
+    {
+     "file": "0072_NG.png",
+     "gt": 4,
+     "pred": 5,
+     "fn": 1,
+     "fp": 2,
+     "types": [
+      "oil",
+      "pit",
+      "scratch",
+      "pit"
+     ],
+     "contrasts": [
+      17.6,
+      58.3,
+      28.6,
+      61.1
+     ],
+     "areas_px": [
+      4734,
+      100,
+      42,
+      105
+     ]
+    },
+    {
+     "file": "0073_NG.png",
+     "gt": 2,
+     "pred": 1,
+     "fn": 2,
+     "fp": 1,
+     "types": [
+      "stain",
+      "stain"
+     ],
+     "contrasts": [
+      23.1,
+      24.7
+     ],
+     "areas_px": [
+      1201,
+      749
+     ]
+    },
+    {
+     "file": "0074_NG.png",
+     "gt": 1,
+     "pred": 2,
+     "fn": 1,
+     "fp": 2,
+     "types": [
+      "stain"
+     ],
+     "contrasts": [
+      28.7
+     ],
+     "areas_px": [
+      749
+     ]
+    },
+    {
+     "file": "0076_NG.png",
+     "gt": 1,
+     "pred": 2,
+     "fn": 0,
+     "fp": 1,
+     "types": [
+      "stain"
+     ],
+     "contrasts": [
+      29.9
+     ],
+     "areas_px": [
+      1201
+     ]
+    },
+    {
+     "file": "0078_NG.png",
+     "gt": 4,
+     "pred": 3,
+     "fn": 3,
+     "fp": 2,
+     "types": [
+      "scratch",
+      "stain",
+      "pit",
+      "oil"
+     ],
+     "contrasts": [
+      27.7,
+      24.0,
+      60.8,
+      13.0
+     ],
+     "areas_px": [
+      368,
+      749,
+      72,
+      1651
+     ]
+    },
+    {
+     "file": "0079_NG.png",
+     "gt": 3,
+     "pred": 1,
+     "fn": 3,
+     "fp": 1,
+     "types": [
+      "scratch",
+      "scratch",
+      "scratch"
+     ],
+     "contrasts": [
+      35.6,
+      45.0,
+      36.7
+     ],
+     "areas_px": [
+      251,
+      79,
+      605
+     ]
+    },
+    {
+     "file": "0081_NG.png",
+     "gt": 3,
+     "pred": 3,
+     "fn": 2,
+     "fp": 2,
+     "types": [
+      "stain",
+      "pit",
+      "oil"
+     ],
+     "contrasts": [
+      18.9,
+      44.4,
+      14.2
+     ],
+     "areas_px": [
+      877,
+      175,
+      4579
+     ]
+    },
+    {
+     "file": "0083_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 3,
+     "fp": 2,
+     "types": [
+      "oil",
+      "stain",
+      "scratch"
+     ],
+     "contrasts": [
+      14.3,
+      19.4,
+      46.1
+     ],
+     "areas_px": [
+      3128,
+      1201,
+      373
+     ]
+    },
+    {
+     "file": "0084_NG.png",
+     "gt": 2,
+     "pred": 2,
+     "fn": 2,
+     "fp": 2,
+     "types": [
+      "oil",
+      "stain"
+     ],
+     "contrasts": [
+      16.8,
+      19.9
+     ],
+     "areas_px": [
+      3761,
+      609
+     ]
+    },
+    {
+     "file": "0085_NG.png",
+     "gt": 3,
+     "pred": 4,
+     "fn": 1,
+     "fp": 2,
+     "types": [
+      "stain",
+      "stain",
+      "oil"
+     ],
+     "contrasts": [
+      28.5,
+      26.8,
+      14.6
+     ],
+     "areas_px": [
+      1565,
+      1201,
+      1495
+     ]
+    },
+    {
+     "file": "0086_NG.png",
+     "gt": 1,
+     "pred": 1,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "pit"
+     ],
+     "contrasts": [
+      55.2
+     ],
+     "areas_px": [
+      128
+     ]
+    },
+    {
+     "file": "0088_NG.png",
+     "gt": 3,
+     "pred": 3,
+     "fn": 2,
+     "fp": 2,
+     "types": [
+      "oil",
+      "stain",
+      "oil",
+      "oil"
+     ],
+     "contrasts": [
+      13.9,
+      29.9,
+      14.1,
+      16.6
+     ],
+     "areas_px": [
+      2291,
+      1369,
+      5768,
+      3574
+     ]
+    },
+    {
+     "file": "0090_NG.png",
+     "gt": 4,
+     "pred": 7,
+     "fn": 2,
+     "fp": 5,
+     "types": [
+      "stain",
+      "pit",
+      "stain",
+      "pit"
+     ],
+     "contrasts": [
+      21.4,
+      57.1,
+      33.2,
+      59.4
+     ],
+     "areas_px": [
+      749,
+      81,
+      385,
+      68
+     ]
+    },
+    {
+     "file": "0091_NG.png",
+     "gt": 2,
+     "pred": 1,
+     "fn": 2,
+     "fp": 1,
+     "types": [
+      "scratch",
+      "oil"
+     ],
+     "contrasts": [
+      33.3,
+      21.7
+     ],
+     "areas_px": [
+      96,
+      3168
+     ]
+    },
+    {
+     "file": "0092_NG.png",
+     "gt": 4,
+     "pred": 11,
+     "fn": 1,
+     "fp": 8,
+     "types": [
+      "oil",
+      "oil",
+      "pit",
+      "pit"
+     ],
+     "contrasts": [
+      21.0,
+      17.7,
+      57.4,
+      44.6
+     ],
+     "areas_px": [
+      1325,
+      4692,
+      167,
+      149
+     ]
+    },
+    {
+     "file": "0094_NG.png",
+     "gt": 4,
+     "pred": 7,
+     "fn": 0,
+     "fp": 3,
+     "types": [
+      "pit",
+      "pit",
+      "scratch",
+      "stain"
+     ],
+     "contrasts": [
+      64.8,
+      50.9,
+      43.7,
+      20.8
+     ],
+     "areas_px": [
+      90,
+      167,
+      190,
+      385
+     ]
+    },
+    {
+     "file": "0095_NG.png",
+     "gt": 2,
+     "pred": 3,
+     "fn": 1,
+     "fp": 2,
+     "types": [
+      "oil",
+      "scratch"
+     ],
+     "contrasts": [
+      21.6,
+      38.4
+     ],
+     "areas_px": [
+      3167,
+      274
+     ]
+    },
+    {
+     "file": "0096_NG.png",
+     "gt": 1,
+     "pred": 1,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "oil"
+     ],
+     "contrasts": [
+      16.4
+     ],
+     "areas_px": [
+      3836
+     ]
+    },
+    {
+     "file": "0097_NG.png",
+     "gt": 4,
+     "pred": 6,
+     "fn": 4,
+     "fp": 6,
+     "types": [
+      "pit",
+      "scratch",
+      "oil",
+      "stain"
+     ],
+     "contrasts": [
+      55.7,
+      47.1,
+      13.2,
+      27.3
+     ],
+     "areas_px": [
+      61,
+      92,
+      1509,
+      1201
+     ]
+    },
+    {
+     "file": "0100_NG.png",
+     "gt": 2,
+     "pred": 2,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "pit",
+      "stain"
+     ],
+     "contrasts": [
+      48.8,
+      23.5
+     ],
+     "areas_px": [
+      168,
+      609
+     ]
+    },
+    {
+     "file": "0101_NG.png",
+     "gt": 1,
+     "pred": 3,
+     "fn": 1,
+     "fp": 3,
+     "types": [
+      "pit"
+     ],
+     "contrasts": [
+      64.5
+     ],
+     "areas_px": [
+      102
+     ]
+    },
+    {
+     "file": "0102_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 2,
+     "fp": 1,
+     "types": [
+      "oil",
+      "stain",
+      "stain"
+     ],
+     "contrasts": [
+      18.0,
+      30.2,
+      20.7
+     ],
+     "areas_px": [
+      1925,
+      877,
+      1565
+     ]
+    },
+    {
+     "file": "0103_NG.png",
+     "gt": 2,
+     "pred": 2,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "stain",
+      "stain"
+     ],
+     "contrasts": [
+      32.7,
+      31.7
+     ],
+     "areas_px": [
+      1369,
+      1369
+     ]
+    },
+    {
+     "file": "0104_NG.png",
+     "gt": 3,
+     "pred": 6,
+     "fn": 0,
+     "fp": 3,
+     "types": [
+      "scratch",
+      "pit",
+      "oil"
+     ],
+     "contrasts": [
+      47.4,
+      60.0,
+      21.0
+     ],
+     "areas_px": [
+      328,
+      72,
+      1530
+     ]
+    },
+    {
+     "file": "0105_NG.png",
+     "gt": 1,
+     "pred": 2,
+     "fn": 0,
+     "fp": 1,
+     "types": [
+      "stain"
+     ],
+     "contrasts": [
+      25.1
+     ],
+     "areas_px": [
+      385
+     ]
+    },
+    {
+     "file": "0106_NG.png",
+     "gt": 1,
+     "pred": 1,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "oil"
+     ],
+     "contrasts": [
+      15.6
+     ],
+     "areas_px": [
+      1974
+     ]
+    },
+    {
+     "file": "0107_NG.png",
+     "gt": 2,
+     "pred": 1,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "stain",
+      "oil"
+     ],
+     "contrasts": [
+      21.9,
+      16.0
+     ],
+     "areas_px": [
+      749,
+      4895
+     ]
+    },
+    {
+     "file": "0109_NG.png",
+     "gt": 1,
+     "pred": 1,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "stain"
+     ],
+     "contrasts": [
+      30.7
+     ],
+     "areas_px": [
+      609
+     ]
+    },
+    {
+     "file": "0110_NG.png",
+     "gt": 1,
+     "pred": 4,
+     "fn": 1,
+     "fp": 4,
+     "types": [
+      "scratch"
+     ],
+     "contrasts": [
+      48.7
+     ],
+     "areas_px": [
+      68
+     ]
+    },
+    {
+     "file": "0111_NG.png",
+     "gt": 3,
+     "pred": 5,
+     "fn": 2,
+     "fp": 4,
+     "types": [
+      "oil",
+      "stain",
+      "pit"
+     ],
+     "contrasts": [
+      18.6,
+      19.5,
+      58.1
+     ],
+     "areas_px": [
+      1852,
+      1201,
+      123
+     ]
+    },
+    {
+     "file": "0112_NG.png",
+     "gt": 2,
+     "pred": 3,
+     "fn": 2,
+     "fp": 3,
+     "types": [
+      "pit",
+      "pit"
+     ],
+     "contrasts": [
+      63.5,
+      47.2
+     ],
+     "areas_px": [
+      72,
+      105
+     ]
+    },
+    {
+     "file": "0114_NG.png",
+     "gt": 1,
+     "pred": 3,
+     "fn": 0,
+     "fp": 2,
+     "types": [
+      "scratch",
+      "oil"
+     ],
+     "contrasts": [
+      29.0,
+      19.6
+     ],
+     "areas_px": [
+      628,
+      3409
+     ]
+    },
+    {
+     "file": "0116_NG.png",
+     "gt": 4,
+     "pred": 2,
+     "fn": 4,
+     "fp": 2,
+     "types": [
+      "oil",
+      "pit",
+      "stain",
+      "scratch"
+     ],
+     "contrasts": [
+      19.6,
+      53.9,
+      18.1,
+      32.1
+     ],
+     "areas_px": [
+      4898,
+      37,
+      1565,
+      432
+     ]
+    },
+    {
+     "file": "0117_NG.png",
+     "gt": 2,
+     "pred": 4,
+     "fn": 1,
+     "fp": 3,
+     "types": [
+      "scratch",
+      "stain"
+     ],
+     "contrasts": [
+      34.6,
+      28.2
+     ],
+     "areas_px": [
+      192,
+      609
+     ]
+    },
+    {
+     "file": "0118_NG.png",
+     "gt": 4,
+     "pred": 1,
+     "fn": 4,
+     "fp": 1,
+     "types": [
+      "scratch",
+      "stain",
+      "pit",
+      "scratch"
+     ],
+     "contrasts": [
+      48.8,
+      28.1,
+      54.9,
+      29.1
+     ],
+     "areas_px": [
+      268,
+      1201,
+      68,
+      145
+     ]
+    },
+    {
+     "file": "0119_NG.png",
+     "gt": 2,
+     "pred": 3,
+     "fn": 1,
+     "fp": 2,
+     "types": [
+      "oil",
+      "pit"
+     ],
+     "contrasts": [
+      18.6,
+      50.0
+     ],
+     "areas_px": [
+      2776,
+      83
+     ]
+    },
+    {
+     "file": "0120_NG.png",
+     "gt": 2,
+     "pred": 4,
+     "fn": 2,
+     "fp": 4,
+     "types": [
+      "scratch",
+      "scratch"
+     ],
+     "contrasts": [
+      35.8,
+      57.2
+     ],
+     "areas_px": [
+      45,
+      97
+     ]
+    },
+    {
+     "file": "0122_NG.png",
+     "gt": 3,
+     "pred": 1,
+     "fn": 3,
+     "fp": 1,
+     "types": [
+      "oil",
+      "oil",
+      "oil"
+     ],
+     "contrasts": [
+      13.9,
+      13.3,
+      12.0
+     ],
+     "areas_px": [
+      2676,
+      1950,
+      1695
+     ]
+    },
+    {
+     "file": "0123_NG.png",
+     "gt": 3,
+     "pred": 3,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "oil",
+      "pit",
+      "stain"
+     ],
+     "contrasts": [
+      19.7,
+      44.7,
+      29.9
+     ],
+     "areas_px": [
+      2594,
+      104,
+      1369
+     ]
+    },
+    {
+     "file": "0124_NG.png",
+     "gt": 3,
+     "pred": 3,
+     "fn": 3,
+     "fp": 3,
+     "types": [
+      "pit",
+      "oil",
+      "pit"
+     ],
+     "contrasts": [
+      43.5,
+      21.1,
+      58.3
+     ],
+     "areas_px": [
+      51,
+      2977,
+      49
+     ]
+    },
+    {
+     "file": "0125_NG.png",
+     "gt": 3,
+     "pred": 10,
+     "fn": 1,
+     "fp": 8,
+     "types": [
+      "scratch",
+      "pit",
+      "stain"
+     ],
+     "contrasts": [
+      45.3,
+      48.6,
+      31.8
+     ],
+     "areas_px": [
+      154,
+      161,
+      749
+     ]
+    },
+    {
+     "file": "0126_NG.png",
+     "gt": 2,
+     "pred": 3,
+     "fn": 1,
+     "fp": 2,
+     "types": [
+      "stain",
+      "stain"
+     ],
+     "contrasts": [
+      23.2,
+      26.2
+     ],
+     "areas_px": [
+      1565,
+      497
+     ]
+    },
+    {
+     "file": "0127_NG.png",
+     "gt": 1,
+     "pred": 2,
+     "fn": 1,
+     "fp": 2,
+     "types": [
+      "scratch"
+     ],
+     "contrasts": [
+      32.0
+     ],
+     "areas_px": [
+      386
+     ]
+    },
+    {
+     "file": "0128_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 2,
+     "fp": 1,
+     "types": [
+      "stain",
+      "pit",
+      "pit"
+     ],
+     "contrasts": [
+      31.9,
+      61.0,
+      62.0
+     ],
+     "areas_px": [
+      877,
+      74,
+      45
+     ]
+    },
+    {
+     "file": "0129_NG.png",
+     "gt": 3,
+     "pred": 3,
+     "fn": 2,
+     "fp": 2,
+     "types": [
+      "pit",
+      "pit",
+      "pit",
+      "scratch"
+     ],
+     "contrasts": [
+      65.7,
+      40.0,
+      62.6,
+      36.4
+     ],
+     "areas_px": [
+      67,
+      213,
+      44,
+      383
+     ]
+    },
+    {
+     "file": "0130_NG.png",
+     "gt": 3,
+     "pred": 3,
+     "fn": 2,
+     "fp": 2,
+     "types": [
+      "oil",
+      "oil",
+      "pit",
+      "stain"
+     ],
+     "contrasts": [
+      20.3,
+      20.9,
+      62.0,
+      25.1
+     ],
+     "areas_px": [
+      4509,
+      3071,
+      72,
+      1041
+     ]
+    },
+    {
+     "file": "0131_NG.png",
+     "gt": 1,
+     "pred": 1,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "pit"
+     ],
+     "contrasts": [
+      39.6
+     ],
+     "areas_px": [
+      82
+     ]
+    },
+    {
+     "file": "0132_NG.png",
+     "gt": 1,
+     "pred": 3,
+     "fn": 1,
+     "fp": 3,
+     "types": [
+      "scratch"
+     ],
+     "contrasts": [
+      39.4
+     ],
+     "areas_px": [
+      73
+     ]
+    },
+    {
+     "file": "0133_NG.png",
+     "gt": 2,
+     "pred": 2,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "pit",
+      "scratch"
+     ],
+     "contrasts": [
+      62.6,
+      37.1
+     ],
+     "areas_px": [
+      143,
+      523
+     ]
+    },
+    {
+     "file": "0134_NG.png",
+     "gt": 3,
+     "pred": 3,
+     "fn": 2,
+     "fp": 2,
+     "types": [
+      "oil",
+      "stain",
+      "oil"
+     ],
+     "contrasts": [
+      18.0,
+      24.5,
+      17.9
+     ],
+     "areas_px": [
+      2974,
+      1041,
+      5474
+     ]
+    },
+    {
+     "file": "0135_NG.png",
+     "gt": 2,
+     "pred": 3,
+     "fn": 0,
+     "fp": 1,
+     "types": [
+      "oil",
+      "oil",
+      "oil",
+      "pit"
+     ],
+     "contrasts": [
+      16.5,
+      15.1,
+      18.7,
+      45.4
+     ],
+     "areas_px": [
+      4897,
+      3876,
+      2949,
+      77
+     ]
+    },
+    {
+     "file": "0136_NG.png",
+     "gt": 3,
+     "pred": 3,
+     "fn": 1,
+     "fp": 1,
+     "types": [
+      "pit",
+      "pit",
+      "scratch"
+     ],
+     "contrasts": [
+      56.5,
+      36.1,
+      48.5
+     ],
+     "areas_px": [
+      170,
+      221,
+      67
+     ]
+    },
+    {
+     "file": "0137_NG.png",
+     "gt": 2,
+     "pred": 5,
+     "fn": 1,
+     "fp": 4,
+     "types": [
+      "stain",
+      "scratch"
+     ],
+     "contrasts": [
+      31.7,
+      49.8
+     ],
+     "areas_px": [
+      1041,
+      61
+     ]
+    },
+    {
+     "file": "0138_NG.png",
+     "gt": 3,
+     "pred": 3,
+     "fn": 3,
+     "fp": 3,
+     "types": [
+      "scratch",
+      "oil",
+      "stain"
+     ],
+     "contrasts": [
+      37.1,
+      14.0,
+      32.3
+     ],
+     "areas_px": [
+      68,
+      3073,
+      293
+     ]
+    },
+    {
+     "file": "0139_NG.png",
+     "gt": 3,
+     "pred": 1,
+     "fn": 3,
+     "fp": 1,
+     "types": [
+      "pit",
+      "oil",
+      "oil"
+     ],
+     "contrasts": [
+      42.0,
+      21.7,
+      14.1
+     ],
+     "areas_px": [
+      142,
+      3574,
+      3478
+     ]
+    },
+    {
+     "file": "0140_NG.png",
+     "gt": 2,
+     "pred": 5,
+     "fn": 0,
+     "fp": 3,
+     "types": [
+      "stain",
+      "pit"
+     ],
+     "contrasts": [
+      34.0,
+      38.0
+     ],
+     "areas_px": [
+      1201,
+      166
+     ]
+    },
+    {
+     "file": "0141_NG.png",
+     "gt": 1,
+     "pred": 3,
+     "fn": 0,
+     "fp": 2,
+     "types": [
+      "oil"
+     ],
+     "contrasts": [
+      12.9
+     ],
+     "areas_px": [
+      3236
+     ]
+    },
+    {
+     "file": "0142_NG.png",
+     "gt": 3,
+     "pred": 4,
+     "fn": 0,
+     "fp": 1,
+     "types": [
+      "scratch",
+      "pit",
+      "pit"
+     ],
+     "contrasts": [
+      48.6,
+      60.7,
+      47.9
+     ],
+     "areas_px": [
+      218,
+      129,
+      144
+     ]
+    },
+    {
+     "file": "0143_NG.png",
+     "gt": 3,
+     "pred": 5,
+     "fn": 0,
+     "fp": 2,
+     "types": [
+      "pit",
+      "pit",
+      "oil"
+     ],
+     "contrasts": [
+      46.4,
+      49.4,
+      14.7
+     ],
+     "areas_px": [
+      127,
+      102,
+      4931
+     ]
+    },
+    {
+     "file": "0144_NG.png",
+     "gt": 1,
+     "pred": 2,
+     "fn": 0,
+     "fp": 1,
+     "types": [
+      "pit"
+     ],
+     "contrasts": [
+      35.6
+     ],
+     "areas_px": [
+      85
+     ]
+    },
+    {
+     "file": "0145_NG.png",
+     "gt": 3,
+     "pred": 1,
+     "fn": 3,
+     "fp": 1,
+     "types": [
+      "scratch",
+      "scratch",
+      "stain"
+     ],
+     "contrasts": [
+      49.2,
+      39.5,
+      21.1
+     ],
+     "areas_px": [
+      82,
+      82,
+      293
+     ]
+    },
+    {
+     "file": "0146_NG.png",
+     "gt": 2,
+     "pred": 6,
+     "fn": 0,
+     "fp": 4,
+     "types": [
+      "stain",
+      "pit"
+     ],
+     "contrasts": [
+      33.6,
+      69.0
+     ],
+     "areas_px": [
+      1201,
+      91
+     ]
+    },
+    {
+     "file": "0147_NG.png",
+     "gt": 4,
+     "pred": 6,
+     "fn": 1,
+     "fp": 3,
+     "types": [
+      "stain",
+      "oil",
+      "scratch",
+      "pit"
+     ],
+     "contrasts": [
+      21.3,
+      19.5,
+      48.4,
+      41.5
+     ],
+     "areas_px": [
+      1041,
+      3613,
+      130,
+      102
+     ]
+    },
+    {
+     "file": "0148_NG.png",
+     "gt": 4,
+     "pred": 2,
+     "fn": 3,
+     "fp": 1,
+     "types": [
+      "oil",
+      "scratch",
+      "stain",
+      "scratch"
+     ],
+     "contrasts": [
+      18.5,
+      45.3,
+      20.9,
+      28.4
+     ],
+     "areas_px": [
+      2737,
+      216,
+      1565,
+      170
+     ]
+    },
+    {
+     "file": "0149_NG.png",
+     "gt": 1,
+     "pred": 2,
+     "fn": 1,
+     "fp": 2,
+     "types": [
+      "scratch"
+     ],
+     "contrasts": [
+      43.6
+     ],
+     "areas_px": [
+      340
+     ]
+    },
+    {
+     "file": "0150_NG.png",
+     "gt": 3,
+     "pred": 4,
+     "fn": 2,
+     "fp": 3,
+     "types": [
+      "pit",
+      "pit",
+      "stain",
+      "oil"
+     ],
+     "contrasts": [
+      52.7,
+      36.4,
+      33.5,
+      16.0
+     ],
+     "areas_px": [
+      68,
+      61,
+      1041,
+      5417
+     ]
+    },
+    {
+     "file": "0151_NG.png",
+     "gt": 2,
+     "pred": 5,
+     "fn": 1,
+     "fp": 4,
+     "types": [
+      "scratch",
+      "oil"
+     ],
+     "contrasts": [
+      27.2,
+      21.9
+     ],
+     "areas_px": [
+      52,
+      4801
+     ]
+    },
+    {
+     "file": "0154_NG.png",
+     "gt": 1,
+     "pred": 2,
+     "fn": 0,
+     "fp": 1,
+     "types": [
+      "oil"
+     ],
+     "contrasts": [
+      15.7
+     ],
+     "areas_px": [
+      1920
+     ]
+    },
+    {
+     "file": "0155_NG.png",
+     "gt": 2,
+     "pred": 3,
+     "fn": 1,
+     "fp": 2,
+     "types": [
+      "stain",
+      "stain"
+     ],
+     "contrasts": [
+      32.2,
+      27.5
+     ],
+     "areas_px": [
+      1041,
+      1369
+     ]
+    },
+    {
+     "file": "0158_NG.png",
+     "gt": 1,
+     "pred": 4,
+     "fn": 1,
+     "fp": 4,
+     "types": [
+      "stain"
+     ],
+     "contrasts": [
+      29.8
+     ],
+     "areas_px": [
+      609
+     ]
+    },
+    {
+     "file": "0159_NG.png",
+     "gt": 2,
+     "pred": 5,
+     "fn": 1,
+     "fp": 4,
+     "types": [
+      "oil",
+      "stain"
+     ],
+     "contrasts": [
+      13.6,
+      30.4
+     ],
+     "areas_px": [
+      1848,
+      609
+     ]
+    }
+   ],
+   "per_type": {
+    "oil": {
+     "gt": 87,
+     "tp": 26
+    },
+    "scratch": {
+     "gt": 69,
+     "tp": 23
+    },
+    "pit": {
+     "gt": 70,
+     "tp": 34
+    },
+    "stain": {
+     "gt": 84,
+     "tp": 40
+    }
+   },
+   "otsu_bias": 0
+  },
+  "baseline_sweep": [
+   {
+    "images": 160,
+    "ng_images": 124,
+    "ok_images": 36,
+    "tp": 42,
+    "fp": 356,
+    "fn": 259,
+    "precision": 0.1055,
+    "recall": 0.1395,
+    "f1": 0.1202,
+    "miss_rate": 0.8605,
+    "ng_image_recall": 0.9919,
+    "ok_false_alarm": 0.9444,
+    "cost": 2946.0,
+    "avg_ms": 8.02,
+    "p95_ms": 8.99,
+    "fps": 124.7,
+    "otsu_bias": -25
+   },
+   {
+    "images": 160,
+    "ng_images": 124,
+    "ok_images": 36,
+    "tp": 62,
+    "fp": 366,
+    "fn": 239,
+    "precision": 0.1449,
+    "recall": 0.206,
+    "f1": 0.1701,
+    "miss_rate": 0.794,
+    "ng_image_recall": 1.0,
+    "ok_false_alarm": 1.0,
+    "cost": 2756.0,
+    "avg_ms": 8.11,
+    "p95_ms": 9.28,
+    "fps": 123.4,
+    "otsu_bias": -20
+   },
+   {
+    "images": 160,
+    "ng_images": 124,
+    "ok_images": 36,
+    "tp": 93,
+    "fp": 380,
+    "fn": 208,
+    "precision": 0.1966,
+    "recall": 0.309,
+    "f1": 0.2403,
+    "miss_rate": 0.691,
+    "ng_image_recall": 1.0,
+    "ok_false_alarm": 1.0,
+    "cost": 2460.0,
+    "avg_ms": 8.13,
+    "p95_ms": 9.59,
+    "fps": 123.1,
+    "otsu_bias": -15
+   },
+   {
+    "images": 160,
+    "ng_images": 124,
+    "ok_images": 36,
+    "tp": 110,
+    "fp": 392,
+    "fn": 191,
+    "precision": 0.2191,
+    "recall": 0.3654,
+    "f1": 0.274,
+    "miss_rate": 0.6346,
+    "ng_image_recall": 1.0,
+    "ok_false_alarm": 1.0,
+    "cost": 2302.0,
+    "avg_ms": 8.24,
+    "p95_ms": 9.81,
+    "fps": 121.3,
+    "otsu_bias": -10
+   },
+   {
+    "images": 160,
+    "ng_images": 124,
+    "ok_images": 36,
+    "tp": 112,
+    "fp": 378,
+    "fn": 189,
+    "precision": 0.2286,
+    "recall": 0.3721,
+    "f1": 0.2832,
+    "miss_rate": 0.6279,
+    "ng_image_recall": 1.0,
+    "ok_false_alarm": 1.0,
+    "cost": 2268.0,
+    "avg_ms": 8.23,
+    "p95_ms": 9.44,
+    "fps": 121.5,
+    "otsu_bias": -5
+   },
+   {
+    "images": 160,
+    "ng_images": 124,
+    "ok_images": 36,
+    "tp": 115,
+    "fp": 363,
+    "fn": 186,
+    "precision": 0.2406,
+    "recall": 0.3821,
+    "f1": 0.2953,
+    "miss_rate": 0.6179,
+    "ng_image_recall": 1.0,
+    "ok_false_alarm": 1.0,
+    "cost": 2223.0,
+    "avg_ms": 8.42,
+    "p95_ms": 9.78,
+    "fps": 118.7,
+    "otsu_bias": 0
+   },
+   {
+    "images": 160,
+    "ng_images": 124,
+    "ok_images": 36,
+    "tp": 114,
+    "fp": 408,
+    "fn": 187,
+    "precision": 0.2184,
+    "recall": 0.3787,
+    "f1": 0.277,
+    "miss_rate": 0.6213,
+    "ng_image_recall": 1.0,
+    "ok_false_alarm": 1.0,
+    "cost": 2278.0,
+    "avg_ms": 8.57,
+    "p95_ms": 10.1,
+    "fps": 116.7,
+    "otsu_bias": 5
+   },
+   {
+    "images": 160,
+    "ng_images": 124,
+    "ok_images": 36,
+    "tp": 102,
+    "fp": 444,
+    "fn": 199,
+    "precision": 0.1868,
+    "recall": 0.3389,
+    "f1": 0.2409,
+    "miss_rate": 0.6611,
+    "ng_image_recall": 1.0,
+    "ok_false_alarm": 1.0,
+    "cost": 2434.0,
+    "avg_ms": 8.68,
+    "p95_ms": 10.32,
+    "fps": 115.1,
+    "otsu_bias": 10
+   },
+   {
+    "images": 160,
+    "ng_images": 124,
+    "ok_images": 36,
+    "tp": 86,
+    "fp": 413,
+    "fn": 215,
+    "precision": 0.1723,
+    "recall": 0.2857,
+    "f1": 0.215,
+    "miss_rate": 0.7143,
+    "ng_image_recall": 1.0,
+    "ok_false_alarm": 1.0,
+    "cost": 2563.0,
+    "avg_ms": 8.61,
+    "p95_ms": 9.85,
+    "fps": 116.1,
+    "otsu_bias": 15
+   },
+   {
+    "images": 160,
+    "ng_images": 124,
+    "ok_images": 36,
+    "tp": 53,
+    "fp": 434,
+    "fn": 248,
+    "precision": 0.1088,
+    "recall": 0.1761,
+    "f1": 0.1345,
+    "miss_rate": 0.8239,
+    "ng_image_recall": 1.0,
+    "ok_false_alarm": 1.0,
+    "cost": 2914.0,
+    "avg_ms": 8.73,
+    "p95_ms": 10.44,
+    "fps": 114.6,
+    "otsu_bias": 20
+   },
+   {
+    "images": 160,
+    "ng_images": 124,
+    "ok_images": 36,
+    "tp": 30,
+    "fp": 383,
+    "fn": 271,
+    "precision": 0.0726,
+    "recall": 0.0997,
+    "f1": 0.084,
+    "miss_rate": 0.9003,
+    "ng_image_recall": 1.0,
+    "ok_false_alarm": 1.0,
+    "cost": 3093.0,
+    "avg_ms": 8.86,
+    "p95_ms": 10.16,
+    "fps": 112.9,
+    "otsu_bias": 25
+   }
+  ],
+  "improved": {
+   "images": 160,
+   "ng_images": 124,
+   "ok_images": 36,
+   "tp": 273,
+   "fp": 5,
+   "fn": 28,
+   "precision": 0.982,
+   "recall": 0.907,
+   "f1": 0.943,
+   "miss_rate": 0.093,
+   "ng_image_recall": 0.9758,
+   "ok_false_alarm": 0.0,
+   "cost": 285.0,
+   "avg_ms": 33.37,
+   "p95_ms": 35.71,
+   "fps": 30.0,
+   "failures": [
+    {
+     "file": "0007_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "oil",
+      "scratch",
+      "pit"
+     ],
+     "contrasts": [
+      21.2,
+      41.4,
+      68.5
+     ],
+     "areas_px": [
+      5015,
+      98,
+      70
+     ]
+    },
+    {
+     "file": "0018_NG.png",
+     "gt": 2,
+     "pred": 3,
+     "fn": 0,
+     "fp": 1,
+     "types": [
+      "oil",
+      "pit",
+      "oil"
+     ],
+     "contrasts": [
+      20.2,
+      56.4,
+      16.0
+     ],
+     "areas_px": [
+      3680,
+      139,
+      3470
+     ]
+    },
+    {
+     "file": "0020_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "oil",
+      "scratch",
+      "scratch"
+     ],
+     "contrasts": [
+      20.5,
+      44.2,
+      36.0
+     ],
+     "areas_px": [
+      2981,
+      403,
+      99
+     ]
+    },
+    {
+     "file": "0027_NG.png",
+     "gt": 4,
+     "pred": 3,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "oil",
+      "scratch",
+      "scratch",
+      "stain"
+     ],
+     "contrasts": [
+      21.0,
+      29.1,
+      37.8,
+      28.7
+     ],
+     "areas_px": [
+      4477,
+      63,
+      350,
+      385
+     ]
+    },
+    {
+     "file": "0031_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "scratch",
+      "oil",
+      "pit"
+     ],
+     "contrasts": [
+      39.0,
+      21.2,
+      61.3
+     ],
+     "areas_px": [
+      42,
+      2064,
+      64
+     ]
+    },
+    {
+     "file": "0037_NG.png",
+     "gt": 4,
+     "pred": 2,
+     "fn": 2,
+     "fp": 0,
+     "types": [
+      "scratch",
+      "pit",
+      "scratch",
+      "scratch"
+     ],
+     "contrasts": [
+      30.5,
+      50.1,
+      36.1,
+      26.2
+     ],
+     "areas_px": [
+      320,
+      166,
+      94,
+      72
+     ]
+    },
+    {
+     "file": "0041_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "oil",
+      "oil",
+      "pit"
+     ],
+     "contrasts": [
+      15.5,
+      13.4,
+      40.0
+     ],
+     "areas_px": [
+      1462,
+      4153,
+      78
+     ]
+    },
+    {
+     "file": "0050_NG.png",
+     "gt": 2,
+     "pred": 1,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "scratch",
+      "stain"
+     ],
+     "contrasts": [
+      34.1,
+      19.3
+     ],
+     "areas_px": [
+      30,
+      609
+     ]
+    },
+    {
+     "file": "0058_NG.png",
+     "gt": 1,
+     "pred": 0,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "scratch"
+     ],
+     "contrasts": [
+      40.6
+     ],
+     "areas_px": [
+      57
+     ]
+    },
+    {
+     "file": "0059_NG.png",
+     "gt": 2,
+     "pred": 3,
+     "fn": 0,
+     "fp": 1,
+     "types": [
+      "scratch",
+      "scratch"
+     ],
+     "contrasts": [
+      52.8,
+      54.1
+     ],
+     "areas_px": [
+      103,
+      291
+     ]
+    },
+    {
+     "file": "0061_NG.png",
+     "gt": 4,
+     "pred": 5,
+     "fn": 0,
+     "fp": 1,
+     "types": [
+      "pit",
+      "scratch",
+      "stain",
+      "oil"
+     ],
+     "contrasts": [
+      42.6,
+      47.3,
+      24.6,
+      14.4
+     ],
+     "areas_px": [
+      194,
+      305,
+      385,
+      2268
+     ]
+    },
+    {
+     "file": "0067_NG.png",
+     "gt": 2,
+     "pred": 1,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "scratch",
+      "oil"
+     ],
+     "contrasts": [
+      38.9,
+      17.5
+     ],
+     "areas_px": [
+      50,
+      2853
+     ]
+    },
+    {
+     "file": "0072_NG.png",
+     "gt": 4,
+     "pred": 3,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "oil",
+      "pit",
+      "scratch",
+      "pit"
+     ],
+     "contrasts": [
+      17.6,
+      58.3,
+      28.6,
+      61.1
+     ],
+     "areas_px": [
+      4734,
+      100,
+      42,
+      105
+     ]
+    },
+    {
+     "file": "0079_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "scratch",
+      "scratch",
+      "scratch"
+     ],
+     "contrasts": [
+      35.6,
+      45.0,
+      36.7
+     ],
+     "areas_px": [
+      251,
+      79,
+      605
+     ]
+    },
+    {
+     "file": "0088_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "oil",
+      "stain",
+      "oil",
+      "oil"
+     ],
+     "contrasts": [
+      13.9,
+      29.9,
+      14.1,
+      16.6
+     ],
+     "areas_px": [
+      2291,
+      1369,
+      5768,
+      3574
+     ]
+    },
+    {
+     "file": "0091_NG.png",
+     "gt": 2,
+     "pred": 1,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "scratch",
+      "oil"
+     ],
+     "contrasts": [
+      33.3,
+      21.7
+     ],
+     "areas_px": [
+      96,
+      3168
+     ]
+    },
+    {
+     "file": "0094_NG.png",
+     "gt": 4,
+     "pred": 3,
+     "fn": 2,
+     "fp": 1,
+     "types": [
+      "pit",
+      "pit",
+      "scratch",
+      "stain"
+     ],
+     "contrasts": [
+      64.8,
+      50.9,
+      43.7,
+      20.8
+     ],
+     "areas_px": [
+      90,
+      167,
+      190,
+      385
+     ]
+    },
+    {
+     "file": "0110_NG.png",
+     "gt": 1,
+     "pred": 0,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "scratch"
+     ],
+     "contrasts": [
+      48.7
+     ],
+     "areas_px": [
+      68
+     ]
+    },
+    {
+     "file": "0116_NG.png",
+     "gt": 4,
+     "pred": 3,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "oil",
+      "pit",
+      "stain",
+      "scratch"
+     ],
+     "contrasts": [
+      19.6,
+      53.9,
+      18.1,
+      32.1
+     ],
+     "areas_px": [
+      4898,
+      37,
+      1565,
+      432
+     ]
+    },
+    {
+     "file": "0120_NG.png",
+     "gt": 2,
+     "pred": 1,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "scratch",
+      "scratch"
+     ],
+     "contrasts": [
+      35.8,
+      57.2
+     ],
+     "areas_px": [
+      45,
+      97
+     ]
+    },
+    {
+     "file": "0124_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "pit",
+      "oil",
+      "pit"
+     ],
+     "contrasts": [
+      43.5,
+      21.1,
+      58.3
+     ],
+     "areas_px": [
+      51,
+      2977,
+      49
+     ]
+    },
+    {
+     "file": "0128_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "stain",
+      "pit",
+      "pit"
+     ],
+     "contrasts": [
+      31.9,
+      61.0,
+      62.0
+     ],
+     "areas_px": [
+      877,
+      74,
+      45
+     ]
+    },
+    {
+     "file": "0132_NG.png",
+     "gt": 1,
+     "pred": 0,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "scratch"
+     ],
+     "contrasts": [
+      39.4
+     ],
+     "areas_px": [
+      73
+     ]
+    },
+    {
+     "file": "0136_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "pit",
+      "pit",
+      "scratch"
+     ],
+     "contrasts": [
+      56.5,
+      36.1,
+      48.5
+     ],
+     "areas_px": [
+      170,
+      221,
+      67
+     ]
+    },
+    {
+     "file": "0138_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "scratch",
+      "oil",
+      "stain"
+     ],
+     "contrasts": [
+      37.1,
+      14.0,
+      32.3
+     ],
+     "areas_px": [
+      68,
+      3073,
+      293
+     ]
+    },
+    {
+     "file": "0139_NG.png",
+     "gt": 3,
+     "pred": 2,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "pit",
+      "oil",
+      "oil"
+     ],
+     "contrasts": [
+      42.0,
+      21.7,
+      14.1
+     ],
+     "areas_px": [
+      142,
+      3574,
+      3478
+     ]
+    },
+    {
+     "file": "0145_NG.png",
+     "gt": 3,
+     "pred": 1,
+     "fn": 2,
+     "fp": 0,
+     "types": [
+      "scratch",
+      "scratch",
+      "stain"
+     ],
+     "contrasts": [
+      49.2,
+      39.5,
+      21.1
+     ],
+     "areas_px": [
+      82,
+      82,
+      293
+     ]
+    },
+    {
+     "file": "0150_NG.png",
+     "gt": 3,
+     "pred": 4,
+     "fn": 0,
+     "fp": 1,
+     "types": [
+      "pit",
+      "pit",
+      "stain",
+      "oil"
+     ],
+     "contrasts": [
+      52.7,
+      36.4,
+      33.5,
+      16.0
+     ],
+     "areas_px": [
+      68,
+      61,
+      1041,
+      5417
+     ]
+    },
+    {
+     "file": "0151_NG.png",
+     "gt": 2,
+     "pred": 1,
+     "fn": 1,
+     "fp": 0,
+     "types": [
+      "scratch",
+      "oil"
+     ],
+     "contrasts": [
+      27.2,
+      21.9
+     ],
+     "areas_px": [
+      52,
+      4801
+     ]
+    }
+   ],
+   "per_type": {
+    "oil": {
+     "gt": 87,
+     "tp": 84
+    },
+    "scratch": {
+     "gt": 69,
+     "tp": 49
+    },
+    "pit": {
+     "gt": 70,
+     "tp": 64
+    },
+    "stain": {
+     "gt": 84,
+     "tp": 83
+    }
+   }
+  }
+ },
+ "ablation": {
+  "full": {
+   "precision": 0.982,
+   "recall": 0.907,
+   "f1": 0.943,
+   "miss_rate": 0.093,
+   "cost": 285.0
+  },
+  "w/o 光照归一化": {
+   "precision": 0.0601,
+   "recall": 0.4684,
+   "f1": 0.1065,
+   "miss_rate": 0.5316,
+   "cost": 3805.0
+  },
+  "w/o 多尺度(单核)": {
+   "precision": 0.9013,
+   "recall": 0.4551,
+   "f1": 0.6049,
+   "miss_rate": 0.5449,
+   "cost": 1655.0
+  },
+  "baseline(Otsu)": {
+   "precision": 0.2406,
+   "recall": 0.3821,
+   "f1": 0.2953,
+   "miss_rate": 0.6179,
+   "cost": 2223.0
+  }
+ },
+ "tradeoff": [
+  {
+   "images": 160,
+   "ng_images": 124,
+   "ok_images": 36,
+   "tp": 282,
+   "fp": 1023,
+   "fn": 19,
+   "precision": 0.2161,
+   "recall": 0.9369,
+   "f1": 0.3512,
+   "miss_rate": 0.0631,
+   "ng_image_recall": 1.0,
+   "ok_false_alarm": 1.0,
+   "cost": 1213.0,
+   "avg_ms": 33.26,
+   "p95_ms": 35.65,
+   "fps": 30.1,
+   "score_thr": 0.3
+  },
+  {
+   "images": 160,
+   "ng_images": 124,
+   "ok_images": 36,
+   "tp": 282,
+   "fp": 1023,
+   "fn": 19,
+   "precision": 0.2161,
+   "recall": 0.9369,
+   "f1": 0.3512,
+   "miss_rate": 0.0631,
+   "ng_image_recall": 1.0,
+   "ok_false_alarm": 1.0,
+   "cost": 1213.0,
+   "avg_ms": 33.39,
+   "p95_ms": 35.73,
+   "fps": 29.9,
+   "score_thr": 0.35
+  },
+  {
+   "images": 160,
+   "ng_images": 124,
+   "ok_images": 36,
+   "tp": 282,
+   "fp": 1016,
+   "fn": 19,
+   "precision": 0.2173,
+   "recall": 0.9369,
+   "f1": 0.3527,
+   "miss_rate": 0.0631,
+   "ng_image_recall": 1.0,
+   "ok_false_alarm": 1.0,
+   "cost": 1206.0,
+   "avg_ms": 33.35,
+   "p95_ms": 35.33,
+   "fps": 30.0,
+   "score_thr": 0.4
+  },
+  {
+   "images": 160,
+   "ng_images": 124,
+   "ok_images": 36,
+   "tp": 282,
+   "fp": 941,
+   "fn": 19,
+   "precision": 0.2306,
+   "recall": 0.9369,
+   "f1": 0.3701,
+   "miss_rate": 0.0631,
+   "ng_image_recall": 1.0,
+   "ok_false_alarm": 1.0,
+   "cost": 1131.0,
+   "avg_ms": 33.29,
+   "p95_ms": 35.49,
+   "fps": 30.0,
+   "score_thr": 0.45
+  },
+  {
+   "images": 160,
+   "ng_images": 124,
+   "ok_images": 36,
+   "tp": 282,
+   "fp": 419,
+   "fn": 19,
+   "precision": 0.4023,
+   "recall": 0.9369,
+   "f1": 0.5629,
+   "miss_rate": 0.0631,
+   "ng_image_recall": 1.0,
+   "ok_false_alarm": 0.8611,
+   "cost": 609.0,
+   "avg_ms": 33.17,
+   "p95_ms": 35.34,
+   "fps": 30.1,
+   "score_thr": 0.5
+  },
+  {
+   "images": 160,
+   "ng_images": 124,
+   "ok_images": 36,
+   "tp": 279,
+   "fp": 32,
+   "fn": 22,
+   "precision": 0.8971,
+   "recall": 0.9269,
+   "f1": 0.9118,
+   "miss_rate": 0.0731,
+   "ng_image_recall": 0.9919,
+   "ok_false_alarm": 0.1389,
+   "cost": 252.0,
+   "avg_ms": 33.53,
+   "p95_ms": 36.17,
+   "fps": 29.8,
+   "score_thr": 0.55
+  },
+  {
+   "images": 160,
+   "ng_images": 124,
+   "ok_images": 36,
+   "tp": 262,
+   "fp": 1,
+   "fn": 39,
+   "precision": 0.9962,
+   "recall": 0.8704,
+   "f1": 0.9291,
+   "miss_rate": 0.1296,
+   "ng_image_recall": 0.9516,
+   "ok_false_alarm": 0.0,
+   "cost": 391.0,
+   "avg_ms": 33.22,
+   "p95_ms": 35.33,
+   "fps": 30.1,
+   "score_thr": 0.6
+  },
+  {
+   "images": 160,
+   "ng_images": 124,
+   "ok_images": 36,
+   "tp": 219,
+   "fp": 1,
+   "fn": 82,
+   "precision": 0.9955,
+   "recall": 0.7276,
+   "f1": 0.8407,
+   "miss_rate": 0.2724,
+   "ng_image_recall": 0.9032,
+   "ok_false_alarm": 0.0,
+   "cost": 821.0,
+   "avg_ms": 33.39,
+   "p95_ms": 35.75,
+   "fps": 30.0,
+   "score_thr": 0.65
+  },
+  {
+   "images": 160,
+   "ng_images": 124,
+   "ok_images": 36,
+   "tp": 166,
+   "fp": 1,
+   "fn": 135,
+   "precision": 0.994,
+   "recall": 0.5515,
+   "f1": 0.7094,
+   "miss_rate": 0.4485,
+   "ng_image_recall": 0.7903,
+   "ok_false_alarm": 0.0,
+   "cost": 1351.0,
+   "avg_ms": 33.51,
+   "p95_ms": 35.8,
+   "fps": 29.8,
+   "score_thr": 0.7
+  },
+  {
+   "images": 160,
+   "ng_images": 124,
+   "ok_images": 36,
+   "tp": 136,
+   "fp": 1,
+   "fn": 165,
+   "precision": 0.9927,
+   "recall": 0.4518,
+   "f1": 0.621,
+   "miss_rate": 0.5482,
+   "ng_image_recall": 0.7177,
+   "ok_false_alarm": 0.0,
+   "cost": 1651.0,
+   "avg_ms": 33.36,
+   "p95_ms": 35.62,
+   "fps": 30.0,
+   "score_thr": 0.75
+  },
+  {
+   "images": 160,
+   "ng_images": 124,
+   "ok_images": 36,
+   "tp": 109,
+   "fp": 1,
+   "fn": 192,
+   "precision": 0.9909,
+   "recall": 0.3621,
+   "f1": 0.5304,
+   "miss_rate": 0.6379,
+   "ng_image_recall": 0.621,
+   "ok_false_alarm": 0.0,
+   "cost": 1921.0,
+   "avg_ms": 33.25,
+   "p95_ms": 35.58,
+   "fps": 30.1,
+   "score_thr": 0.8
+  }
+ ],
+ "operating_points": {
+  "cost_optimal": {
+   "images": 160,
+   "ng_images": 124,
+   "ok_images": 36,
+   "tp": 279,
+   "fp": 32,
+   "fn": 22,
+   "precision": 0.8971,
+   "recall": 0.9269,
+   "f1": 0.9118,
+   "miss_rate": 0.0731,
+   "ng_image_recall": 0.9919,
+   "ok_false_alarm": 0.1389,
+   "cost": 252.0,
+   "avg_ms": 33.53,
+   "p95_ms": 36.17,
+   "fps": 29.8,
+   "score_thr": 0.55
+  },
+  "f1_optimal": {
+   "images": 160,
+   "ng_images": 124,
+   "ok_images": 36,
+   "tp": 262,
+   "fp": 1,
+   "fn": 39,
+   "precision": 0.9962,
+   "recall": 0.8704,
+   "f1": 0.9291,
+   "miss_rate": 0.1296,
+   "ng_image_recall": 0.9516,
+   "ok_false_alarm": 0.0,
+   "cost": 391.0,
+   "avg_ms": 33.22,
+   "p95_ms": 35.33,
+   "fps": 30.1,
+   "score_thr": 0.6
+  }
+ }
+}
