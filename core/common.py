@@ -40,6 +40,7 @@ class Region:
     score: float
     level: int
     px_per_mm: float = 12.0
+    kind: str = ""            # 粗分类结果：scratch / pit / stain / oil
     extra: dict = field(default_factory=dict)
 
     @property
@@ -54,12 +55,17 @@ class Region:
     def level_cn(self) -> str:
         return LEVEL_CN.get(self.level, "-")
 
+    @property
+    def kind_cn(self) -> str:
+        return {"scratch": "划痕", "pit": "凹坑", "stain": "污渍", "oil": "油污"}.get(self.kind, "未分类")
+
     def as_dict(self) -> dict:
         d = asdict(self)
         d.pop("extra", None)
         d.update(area_mm2=round(self.area_mm2, 3),
                  length_mm=round(self.length_mm, 2),
-                 level_cn=self.level_cn)
+                 level_cn=self.level_cn,
+                 kind_cn=self.kind_cn)
         return d
 
 

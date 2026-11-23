@@ -1,0 +1,62 @@
+{
+ "samples": 280,
+ "rule": {
+  "t_ratio": 2.8,
+  "t_contrast_hi": 40,
+  "t_area_oil": 7.5,
+  "t_contrast_lo": 15.0
+ },
+ "train": {
+  "acc": 0.951,
+  "n": 143,
+  "per_type": {
+   "pit": 0.925,
+   "oil": 0.9565,
+   "stain": 0.9459,
+   "scratch": 1.0
+  }
+ },
+ "test": {
+  "acc": 0.9708,
+  "n": 137,
+  "per_type": {
+   "oil": 0.9737,
+   "scratch": 1.0,
+   "stain": 0.9348,
+   "pit": 1.0
+  }
+ },
+ "all": {
+  "acc": 0.9607,
+  "n": 280,
+  "per_type": {
+   "oil": 0.9643,
+   "scratch": 1.0,
+   "pit": 0.9531,
+   "stain": 0.9398
+  }
+ },
+ "scale_robustness": [
+  {
+   "scale": 0.5,
+   "naive_recall": 0.8621,
+   "adaptive_recall": 0.977,
+   "naive_miss": 12,
+   "adaptive_miss": 2
+  },
+  {
+   "scale": 1.0,
+   "naive_recall": 0.9143,
+   "adaptive_recall": 0.9143,
+   "naive_miss": 9,
+   "adaptive_miss": 9
+  },
+  {
+   "scale": 2.0,
+   "naive_recall": 0.6857,
+   "adaptive_recall": 0.9048,
+   "naive_miss": 33,
+   "adaptive_miss": 10
+  }
+ ]
+}

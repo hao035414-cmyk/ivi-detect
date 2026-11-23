@@ -422,7 +422,7 @@ class App(tk.Tk):
 
     def _set_columns(self, mode):
         spec = {
-            "detect": [("编号", 52), ("等级", 62), ("面积 mm²", 96), ("置信度", 74)],
+            "detect": [("编号", 48), ("类型", 58), ("等级", 58), ("面积 mm²", 88)],
             "ocr": [("段", 40), ("识别文本", 130), ("字数", 52), ("置信度", 66)],
             "measure": [("项目", 70), ("数值", 110), ("像素/备注", 82), ("标记", 60)],
         }[mode]
@@ -545,11 +545,13 @@ class App(tk.Tk):
         img = self.img
         p = self.params
         fn = improved.detect if self.algo == "improved" else baseline.detect
+        scaled = False
         if self.algo == "baseline":
-            p2 = Params(**{**p.__dict__})
-            regs, mask, contrast = fn(img, p2)
+            regs, mask, contrast = fn(img, Params(**{**p.__dict__}))
         else:
-            regs, mask, contrast = fn(img, p)
+            # 标定偏离基准尺度 20% 以上时自动走尺度归一化链路
+            scaled = abs(p.px_per_mm / improved.CANONICAL_PX_PER_MM - 1.0) > 0.2
+            regs, mask, contrast = (improved.detect_adaptive if scaled else fn)(img, p)
 
         vis = overlay(img, regs)
         contrast_vis = cv2.applyColorMap(
@@ -578,11 +580,12 @@ class App(tk.Tk):
         self.tree.delete(*self.tree.get_children())
         for r in regs:
             self.tree.insert("", "end", tags=(f"l{r.level}",),
-                             values=(r.rid, r.level_cn, f"{r.area_mm2:.2f}", f"{r.score:.2f}"))
+                             values=(r.rid, r.kind_cn, r.level_cn, f"{r.area_mm2:.2f}"))
 
         total = sum(r.area_mm2 for r in regs)
         algo_cn = "改进方案" if self.algo == "improved" else "基线 Otsu"
-        self._info(f"方案：{algo_cn}\n"
+        scale_note = "｜已启用尺度归一化（按标定重采样到 12 px/mm）" if scaled else ""
+        self._info(f"方案：{algo_cn}{scale_note}\n"
                    f"检出 {n} 处，总面积 {total:.2f} mm²，最大 {max([r.area_mm2 for r in regs], default=0):.2f} mm²\n"
                    f"参数：min_area={p.min_area}px / score_thr={p.score_thr:.2f} / "
                    f"k_h={p.k_h:.1f} / k_l={p.k_l:.1f} / {p.px_per_mm:.1f}px·mm⁻¹\n"
@@ -829,9 +832,9 @@ class App(tk.Tk):
             csv_path = out / f"{stem}_defects.csv"
             with csv_path.open("w", newline="", encoding="utf-8-sig") as fh:
                 w = csv.writer(fh)
-                w.writerow(["编号", "等级", "面积mm2", "长度mm", "x", "y", "w", "h", "置信度"])
+                w.writerow(["编号", "类型", "等级", "面积mm2", "长度mm", "x", "y", "w", "h", "置信度"])
                 for r in regs:
-                    w.writerow([r["rid"], r["level_cn"], round(r["area_mm2"], 3),
+                    w.writerow([r["rid"], r["kind_cn"], r["level_cn"], round(r["area_mm2"], 3),
                                 round(r["length_mm"], 2), r["x"], r["y"], r["w"], r["h"],
                                 r["score"]])
             messagebox.showinfo("导出", f"已导出：\n{png}\n{csv_path}")

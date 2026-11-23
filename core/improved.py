@@ -24,6 +24,9 @@ from __future__ import annotations
 import cv2
 import numpy as np
 
+from dataclasses import replace
+
+from . import classify
 from .common import Params, Region, analyze_regions
 
 HIGH_SCALES = (7, 15, 25)
@@ -113,9 +116,17 @@ def dual_channel(img: np.ndarray, p: Params):
     return fuse, contrast, info
 
 
+CANONICAL_PX_PER_MM = 12.0
+
+
 def detect(img: np.ndarray, p: Params) -> tuple[list[Region], np.ndarray, np.ndarray]:
     fuse, contrast, _ = dual_channel(img, p)
     regions = analyze_regions(fuse, contrast, p)
+    # 在检出之上做一次粗分类，输出「这是什么缺陷」
+    for r in regions:
+        feat = classify.region_features(r, contrast, fuse, p.px_per_mm)
+        r.kind = classify.classify(feat)
+        r.extra.update(feat)
     kept = [r for r in regions if r.score >= p.score_thr]
     for i, r in enumerate(kept, 1):
         r.rid = i
@@ -127,6 +138,40 @@ def detect(img: np.ndarray, p: Params) -> tuple[list[Region], np.ndarray, np.nda
         sub = fuse[y0:y1, x0:x1]
         final[y0:y1, x0:x1] = np.maximum(final[y0:y1, x0:x1], sub)
     return kept, final, contrast
+
+
+def detect_adaptive(img: np.ndarray, p: Params):
+    """尺度自适应检测：按标定把图像重采样到 12 px/mm 的基准尺度再检测。
+
+    核尺寸、min_area 都是按像素定义的，换相机或改工作距离后必须同步改；
+    这一层把「改图不改参」变成「按物理尺度自动换算」，坐标与面积再映射回原图。
+    """
+    s = p.px_per_mm / CANONICAL_PX_PER_MM
+    if abs(s - 1.0) < 0.2:
+        return detect(img, p)
+
+    h, w = img.shape[:2]
+    nw, nh = max(16, int(round(w / s))), max(16, int(round(h / s)))
+    interp = cv2.INTER_AREA if s > 1 else cv2.INTER_CUBIC
+    work = cv2.resize(img, (nw, nh), interpolation=interp)
+
+    pw = replace(p, px_per_mm=CANONICAL_PX_PER_MM,
+                 min_area=max(20, int(round(p.min_area / (s * s)))))
+    regs, mask, contrast = detect(work, pw)
+
+    for r in regs:
+        r.x = int(round(r.x * s))
+        r.y = int(round(r.y * s))
+        r.w = int(round(r.w * s))
+        r.h = int(round(r.h * s))
+        r.cx *= s
+        r.cy *= s
+        r.area_px = int(round(r.area_px * s * s))
+        r.px_per_mm = p.px_per_mm      # mm 口径回到原标定，物理量不变
+
+    mask_full = cv2.resize(mask, (w, h), interpolation=cv2.INTER_NEAREST)
+    contrast_full = cv2.resize(contrast, (w, h), interpolation=cv2.INTER_LINEAR)
+    return regs, mask_full, contrast_full
 
 
 def detect_no_normalize(img: np.ndarray, p: Params):
