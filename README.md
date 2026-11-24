@@ -69,6 +69,22 @@
 
 复现：`python -m tools.unsup_eval` → `out/unsup_report.json` + `out/anomaly_model.npz`
 
+### 深度模型对照（YOLO26n）
+
+为了说明选型依据，用同一批标注（310 个框）训了一个 YOLO26n 做对照：
+
+| 项 | 规则链路 | YOLO26n |
+|---|---|---|
+| 需要标注 | 0 个框 | 310 个框 |
+| 同验证集 F1 | **0.947** | 0.927 |
+| mAP50 / mAP50-95 | 不适用 | 0.952 / 0.716 |
+| CPU 单帧 | 43 ms | 27 ms |
+| 依赖体积 | OpenCV 约 45 MB | torch 约 2.5 GB |
+
+结论：精度接近、YOLO 更快，但需要标注与 2.5 GB 依赖。现阶段选规则链路是为了零标注上线；产线攒够标注后可替换，属工程取舍。
+
+复现：`python -m tools.export_yolo` → `python -m tools.train_yolo 30 480`（CPU 约 6.5 分钟）
+
 判定阈值权衡（漏检代价 : 误检代价 = 10 : 1）：
 
 | 取值策略 | score_thr | 漏检 | 误检 | 加权代价 |

@@ -1,0 +1,37 @@
+{
+ "val_images": 62,
+ "yolo": {
+  "model": "yolo26n",
+  "epochs": 30,
+  "imgsz": 480,
+  "params_m": 2.54,
+  "mAP50": 0.9515,
+  "mAP50_95": 0.716,
+  "precision": 0.9463,
+  "recall": 0.9084,
+  "per_class_map50": [
+   0.7806,
+   0.6503,
+   0.7358,
+   0.6974
+  ],
+  "val_images": 62,
+  "train_images": 62,
+  "train_boxes": 158,
+  "val_boxes": 152,
+  "cpu_ms": 26.6
+ },
+ "rule_chain": {
+  "precision": 0.9854,
+  "recall": 0.9122,
+  "f1": 0.9474,
+  "cpu_ms": 42.7
+ },
+ "cost": {
+  "yolo_params_m": 2.54,
+  "yolo_train_epochs": 30,
+  "yolo_train_minutes_cpu": 6.5,
+  "rule_train_needs": "0 张标注（阈值 5 个标量）",
+  "yolo_needs": "310 个标注框"
+ }
+}
