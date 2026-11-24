@@ -26,7 +26,7 @@ from PIL import Image, ImageTk
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
-from core import baseline, improved, measure as measure_mod, metrics, ocr  # noqa: E402
+from core import anomaly, baseline, improved, measure as measure_mod, metrics, ocr  # noqa: E402
 from core.common import Params, overlay  # noqa: E402
 from core.textdraw import get_font  # noqa: E402
 
@@ -157,6 +157,15 @@ class App(tk.Tk):
         self.params = Params()
         self.mode = start_mode
         self.algo = start_algo
+        self.unsup_model = None
+        try:
+            self.unsup_model = anomaly.AnomalyModel.load(str(ROOT / "out" / "anomaly_model.npz"))
+        except Exception as exc:  # 模型缺失时该模式不可用，不影响主链路
+            self.unsup_model = None
+            try:
+                (ROOT / "out" / "unsup_load_error.txt").write_text(repr(exc), encoding="utf-8")
+            except Exception:
+                pass
         self.roi: tuple[int, int, int, int] | None = None
         self._drag: tuple[int, int] | None = None
         self._images = self._collect_images()
@@ -259,8 +268,10 @@ class App(tk.Tk):
         c2 = Card(wrap, "算法方案")
         self.card_algo = c2
         c2.grid(row=1, column=0, sticky="ew", pady=(10, 0))
-        self.seg_algo = Seg(c2.body, [("improved", "改进方案"), ("baseline", "基线 Otsu")],
-                            self._on_algo, self.algo)
+        opts = [("improved", "规则链路"), ("unsup", "无监督"), ("baseline", "基线 Otsu")]
+        if self.unsup_model is None:
+            opts = [o for o in opts if o[0] != "unsup"]
+        self.seg_algo = Seg(c2.body, opts, self._on_algo, self.algo)
         self.seg_algo.pack(fill="x")
         self.lbl_algo_note = tk.Label(c2.body, text="光照归一化 + 双频通道 + 代价阈值",
                                       bg=C["panel"], fg=C["dim"], font=f(8),
@@ -477,6 +488,7 @@ class App(tk.Tk):
         self.algo = algo
         self.lbl_algo_note.configure(
             text="光照归一化 + 双频通道 + 代价阈值" if algo == "improved"
+            else "良品特征库 kNN 距离 · 无需标注" if algo == "unsup"
             else "全局 Otsu 阈值 + 形态学（对照基线）")
         self._run()
 
@@ -544,14 +556,16 @@ class App(tk.Tk):
     def _run_detect(self):
         img = self.img
         p = self.params
-        fn = improved.detect if self.algo == "improved" else baseline.detect
         scaled = False
-        if self.algo == "baseline":
-            regs, mask, contrast = fn(img, Params(**{**p.__dict__}))
+        if self.algo == "unsup" and self.unsup_model is not None:
+            regs, mask, contrast = anomaly.detect_unsup(img, self.unsup_model, p)
+        elif self.algo == "baseline":
+            regs, mask, contrast = baseline.detect(img, Params(**{**p.__dict__}))
         else:
             # 标定偏离基准尺度 20% 以上时自动走尺度归一化链路
             scaled = abs(p.px_per_mm / improved.CANONICAL_PX_PER_MM - 1.0) > 0.2
-            regs, mask, contrast = (improved.detect_adaptive if scaled else fn)(img, p)
+            fn = improved.detect_adaptive if scaled else improved.detect
+            regs, mask, contrast = fn(img, p)
 
         vis = overlay(img, regs)
         contrast_vis = cv2.applyColorMap(
@@ -583,7 +597,8 @@ class App(tk.Tk):
                              values=(r.rid, r.kind_cn, r.level_cn, f"{r.area_mm2:.2f}"))
 
         total = sum(r.area_mm2 for r in regs)
-        algo_cn = "改进方案" if self.algo == "improved" else "基线 Otsu"
+        algo_cn = {"improved": "规则链路", "unsup": "无监督（良品训练）",
+                   "baseline": "基线 Otsu"}.get(self.algo, self.algo)
         scale_note = "｜已启用尺度归一化（按标定重采样到 12 px/mm）" if scaled else ""
         self._info(f"方案：{algo_cn}{scale_note}\n"
                    f"检出 {n} 处，总面积 {total:.2f} mm²，最大 {max([r.area_mm2 for r in regs], default=0):.2f} mm²\n"
@@ -867,7 +882,7 @@ def main():
     ap.add_argument("--shot", default=None)
     ap.add_argument("--image", default=None)
     ap.add_argument("--mode", default="detect", choices=["detect", "ocr", "measure"])
-    ap.add_argument("--algo", default="improved", choices=["improved", "baseline"])
+    ap.add_argument("--algo", default="improved", choices=["improved", "unsup", "baseline"])
     args = ap.parse_args()
     _enable_dpi()
     app = App(shot=args.shot, start_image=args.image, start_mode=args.mode,
