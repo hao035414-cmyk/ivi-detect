@@ -16,6 +16,8 @@ from pathlib import Path
 import cv2
 import numpy as np
 
+from .imageio import imread
+
 from .common import Params
 
 
@@ -103,8 +105,8 @@ def evaluate(detect_fn, p: Params, root: Path, limit: int | None = None,
     failures: list[dict] = []
 
     for item in index:
-        img = cv2.imread(str(root / "images" / item["file"]), cv2.IMREAD_GRAYSCALE)
-        gt = cv2.imread(str(root / "gt" / item["file"]), cv2.IMREAD_GRAYSCALE)
+        img = imread(str(root / "images" / item["file"]), cv2.IMREAD_GRAYSCALE)
+        gt = imread(str(root / "gt" / item["file"]), cv2.IMREAD_GRAYSCALE)
         t0 = time.perf_counter()
         regions, binary, _ = detect_fn(img, p)
         dt = (time.perf_counter() - t0) * 1000

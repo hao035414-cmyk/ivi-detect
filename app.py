@@ -28,6 +28,7 @@ sys.path.insert(0, str(ROOT))
 
 from core import anomaly, baseline, improved, measure as measure_mod, metrics, ocr  # noqa: E402
 from core.common import Params, overlay  # noqa: E402
+from core.imageio import imread, imwrite  # noqa: E402
 from core.textdraw import get_font  # noqa: E402
 
 # ---------------------------------------------------------------- 主题
@@ -514,7 +515,7 @@ class App(tk.Tk):
             return
         self.idx = i % len(self._images)
         path = self._images[self.idx]
-        img = cv2.imread(str(path), cv2.IMREAD_GRAYSCALE)
+        img = imread(str(path), cv2.IMREAD_GRAYSCALE)
         if img is None:
             self._info(f"无法读取：{path.name}")
             return
@@ -921,7 +922,7 @@ class App(tk.Tk):
             png = out / f"{stem}_detect.png"
             vis = self._last_vis.get(1)
             if vis is not None:
-                cv2.imwrite(str(png), vis)
+                imwrite(str(png), vis)
             csv_path = out / f"{stem}_defects.csv"
             with csv_path.open("w", newline="", encoding="utf-8-sig") as fh:
                 w = csv.writer(fh)

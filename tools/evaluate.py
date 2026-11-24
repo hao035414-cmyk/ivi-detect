@@ -28,6 +28,7 @@ sys.path.insert(0, str(ROOT))
 from core import baseline, improved, metrics  # noqa: E402
 from core.common import Params, overlay  # noqa: E402
 from core.textdraw import filled_label  # noqa: E402
+from core.imageio import imread
 
 DATA = ROOT / "data"
 OUT = ROOT / "out"
@@ -238,8 +239,8 @@ def main():
             cases.append(item["file"])
     canvas_rows = []
     for f in cases[:2]:
-        img = cv2.imread(str(DATA / "images" / f), cv2.IMREAD_GRAYSCALE)
-        gt = cv2.imread(str(DATA / "gt" / f), cv2.IMREAD_GRAYSCALE)
+        img = imread(str(DATA / "images" / f), cv2.IMREAD_GRAYSCALE)
+        gt = imread(str(DATA / "gt" / f), cv2.IMREAD_GRAYSCALE)
         rb, mb, _ = baseline.detect(img, Params(otsu_bias=best_base["otsu_bias"]))
         ri, mi, _ = improved.detect(img, p)
         row = [cv2.cvtColor(img, cv2.COLOR_GRAY2BGR), cv2.cvtColor(gt, cv2.COLOR_GRAY2BGR),

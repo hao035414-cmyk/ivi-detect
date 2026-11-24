@@ -18,6 +18,7 @@ sys.path.insert(0, str(ROOT))
 
 from core import classify, improved, metrics  # noqa: E402
 from core.common import Params  # noqa: E402
+from core.imageio import imread
 
 DATA = ROOT / "data"
 OUT = ROOT / "out"
@@ -31,7 +32,7 @@ def collect_samples() -> list[tuple[dict, str, int]]:
     for k, item in enumerate(index):
         if item["ok"]:
             continue
-        img = cv2.imread(str(DATA / "images" / item["file"]), cv2.IMREAD_GRAYSCALE)
+        img = imread(str(DATA / "images" / item["file"]), cv2.IMREAD_GRAYSCALE)
         regs, mask, contrast = improved.detect(img, p)
         for d in item["defects"]:
             gb = d.get("bbox")
@@ -57,8 +58,8 @@ def scale_test(scale: float, limit: int = 60) -> dict:
     naive_tp = naive_fn = ada_tp = ada_fn = 0
 
     for item in index:
-        img0 = cv2.imread(str(DATA / "images" / item["file"]), cv2.IMREAD_GRAYSCALE)
-        gt0 = cv2.imread(str(DATA / "gt" / item["file"]), cv2.IMREAD_GRAYSCALE)
+        img0 = imread(str(DATA / "images" / item["file"]), cv2.IMREAD_GRAYSCALE)
+        gt0 = imread(str(DATA / "gt" / item["file"]), cv2.IMREAD_GRAYSCALE)
         img = cv2.resize(img0, None, fx=scale, fy=scale,
                          interpolation=cv2.INTER_AREA if scale < 1 else cv2.INTER_CUBIC)
         gt = cv2.resize(gt0, (img.shape[1], img.shape[0]), interpolation=cv2.INTER_NEAREST)

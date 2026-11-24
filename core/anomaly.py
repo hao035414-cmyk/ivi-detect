@@ -18,6 +18,8 @@ from dataclasses import dataclass
 import cv2
 import numpy as np
 
+from .imageio import imread
+
 PATCH = 16
 STRIDE = 8
 BANK_SIZE = 12000
@@ -100,13 +102,13 @@ def load_train_goods(data_dir) -> list[np.ndarray]:
         import json
         for item in json.loads(index_path.read_text(encoding="utf-8")):
             if item.get("ok"):
-                g = cv2.imread(str(data_dir / "images" / item["file"]), cv2.IMREAD_GRAYSCALE)
+                g = imread(str(data_dir / "images" / item["file"]), cv2.IMREAD_GRAYSCALE)
                 if g is not None:
                     imgs.append(g)
     extra_dir = data_dir / "train_ok"
     if extra_dir.exists():
         for f in sorted(extra_dir.glob("*.png")):
-            g = cv2.imread(str(f), cv2.IMREAD_GRAYSCALE)
+            g = imread(str(f), cv2.IMREAD_GRAYSCALE)
             if g is not None:
                 imgs.append(g)
     return imgs
