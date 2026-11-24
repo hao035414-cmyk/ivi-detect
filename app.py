@@ -157,6 +157,7 @@ class App(tk.Tk):
         self.params = Params()
         self.mode = start_mode
         self.algo = start_algo
+        self._training = False
         self.unsup_model = None
         try:
             self.unsup_model = anomaly.AnomalyModel.load(str(ROOT / "out" / "anomaly_model.npz"))
@@ -307,6 +308,7 @@ class App(tk.Tk):
         self._button(row, "下一张 ▶", self._next, small=True).pack(side="left", fill="x",
                                                                    expand=True, padx=(6, 0))
         self._button(c4.body, "批量评测全库", self._batch, accent=True).pack(fill="x", pady=(0, 6))
+        self._button(c4.body, "训练无监督模型", self._train_unsup).pack(fill="x", pady=(0, 6))
         self._button(c4.body, "导出当前结果", self._export).pack(fill="x")
 
     @staticmethod
@@ -768,6 +770,50 @@ class App(tk.Tk):
         self._run()
 
     # ------------------------------------------------------------ 批量评测
+    def _train_unsup(self):
+        """用库内良品图重新训练无监督模型（后台线程，完成后热加载）。"""
+        if getattr(self, "_training", False):
+            return
+        self._training = True
+        self.progress.grid()
+        self.progress["value"] = 0
+        self._status("训练中：只用良品图建立特征库，不要关窗口…")
+
+        def work():
+            import time as _t
+            t0 = _t.perf_counter()
+            try:
+                index = metrics.load_index(ROOT / "data")
+                ok_imgs = []
+                for item in index:
+                    if item["ok"]:
+                        img = cv2.imread(str(ROOT / "data" / "images" / item["file"]),
+                                         cv2.IMREAD_GRAYSCALE)
+                        if img is not None:
+                            ok_imgs.append(img)
+                model = anomaly.train(ok_imgs)
+                model.save(str(ROOT / "out" / "anomaly_model.npz"))
+                ms = (_t.perf_counter() - t0) * 1000
+                self.after(0, lambda: self._train_done(len(ok_imgs), ms, model, None))
+            except Exception as exc:  # noqa: BLE001
+                self.after(0, lambda: self._train_done(0, 0, None, exc))
+
+        threading.Thread(target=work, daemon=True).start()
+
+    def _train_done(self, n_ok, ms, model, exc):
+        self._training = False
+        self.progress.grid_remove()
+        if exc is not None or model is None:
+            self._status(f"训练失败：{exc}")
+            return
+        self.unsup_model = model
+        self._status(f"训练完成：{n_ok} 张良品 · {ms:.1f} ms · 特征库 {model.bank.shape[0]} 条")
+        self._info(f"无监督模型已更新（本次训练 {ms:.0f} ms）\n"
+                   f"训练样本：{n_ok} 张良品，未使用任何缺陷图\n"
+                   f"特征：16×16 patch · 5 维统计量 · 库容量 {model.bank.shape[0]}\n"
+                   f"阈值：{model.thr:.3f}（由良品分数分位校准）\n"
+                   f"模型文件：out/anomaly_model.npz")
+
     def _batch(self):
         if self._batch_running:
             return
