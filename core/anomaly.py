@@ -65,8 +65,55 @@ def patch_features(img: np.ndarray) -> tuple[np.ndarray, tuple[int, int]]:
     return sampled.reshape(-1, FEAT_DIM).astype(np.float32), (h, w)
 
 
+AUG_PER_IMAGE = 4
+THR_QUANTILE = 0.95
+
+
+def augment_goods(images: list[np.ndarray], per_image: int = AUG_PER_IMAGE) -> list[np.ndarray]:
+    """对良品图做轻量增广（无标注依赖）：水平翻转 + 亮度偏移 + 轻噪声。
+
+    目的不是提高分辨率，而是让「正常」的分布覆盖现场的光照与摆放差异。
+    只用良品图增广，不需要任何缺陷样本，仍属无监督范畴。
+    """
+    rng = np.random.default_rng(20261124)
+    out: list[np.ndarray] = []
+    for img in images:
+        variants = [img, cv2.flip(img, 1)]
+        base = img.astype(np.int16)
+        variants.append(np.clip(base + 7, 0, 255).astype(np.uint8))
+        variants.append(np.clip(base - 7, 0, 255).astype(np.uint8))
+        if per_image > len(variants):
+            noise = rng.normal(0, 1.5, img.shape).astype(np.float32)
+            variants.append(np.clip(img + noise, 0, 255).astype(np.uint8))
+        out.extend(variants[:per_image])
+    return out
+
+
+def load_train_goods(data_dir) -> list[np.ndarray]:
+    """收集训练用良品图：评测集里的 OK 图 + data/train_ok 下的额外良品图。"""
+    from pathlib import Path
+
+    imgs: list[np.ndarray] = []
+    data_dir = Path(data_dir)
+    index_path = data_dir / "index.json"
+    if index_path.exists():
+        import json
+        for item in json.loads(index_path.read_text(encoding="utf-8")):
+            if item.get("ok"):
+                g = cv2.imread(str(data_dir / "images" / item["file"]), cv2.IMREAD_GRAYSCALE)
+                if g is not None:
+                    imgs.append(g)
+    extra_dir = data_dir / "train_ok"
+    if extra_dir.exists():
+        for f in sorted(extra_dir.glob("*.png")):
+            g = cv2.imread(str(f), cv2.IMREAD_GRAYSCALE)
+            if g is not None:
+                imgs.append(g)
+    return imgs
+
+
 def train(images: list[np.ndarray], bank_size: int = BANK_SIZE,
-          log=None, progress=None) -> AnomalyModel:
+          log=None, progress=None, augment: bool = False) -> AnomalyModel:
     """只用良品图训练：统计归一化参数 + 建立特征库 + 定阈值。
 
     log(msg)       —— 逐步过程回调（给界面打印训练日志）
@@ -80,7 +127,12 @@ def train(images: list[np.ndarray], bank_size: int = BANK_SIZE,
         if progress:
             progress(max(0.0, min(100.0, pct)))
 
-    _log(f"[1/5] 读取良品图：{len(images)} 张（不使用任何缺陷样本）")
+    n_raw = len(images)
+    if augment:
+        images = augment_goods(images)
+        _log(f"[1/5] 读取良品图：{n_raw} 张，增广后 {len(images)} 张（含翻转/亮度/噪声，不使用任何缺陷样本）")
+    else:
+        _log(f"[1/5] 读取良品图：{n_raw} 张（不使用任何缺陷样本）")
     _prog(2)
 
     all_feats = []
@@ -88,7 +140,7 @@ def train(images: list[np.ndarray], bank_size: int = BANK_SIZE,
     for i, img in enumerate(images, 1):
         f, _ = patch_features(img)
         all_feats.append(f)
-        if i % 6 == 0 or i == n:
+        if i % max(1, n // 6) == 0 or i == n:
             _log(f"      提取 patch 特征 {i}/{n} 张 · 累计 {sum(len(x) for x in all_feats)} 条")
             _prog(2 + 23 * i / n)
     feats = np.concatenate(all_feats, axis=0)
@@ -120,10 +172,10 @@ def train(images: list[np.ndarray], bank_size: int = BANK_SIZE,
         k = max(1, int(flat.size * 0.002))
         img_scores.append(float(flat[:k].mean()))
     arr = np.array(img_scores)
-    model.score_hi = float(np.quantile(arr, 0.995)) * 1.15
-    model.thr = float(np.quantile(arr, 0.99)) * model.score_hi
-    _log(f"      良品异常强度：中位 {np.median(arr):.3f} · 99 分位 {np.quantile(arr, 0.99):.3f}")
-    _log(f"      最终阈值 {model.thr:.3f}（归一化上界 {model.score_hi:.3f}）")
+    model.thr = float(np.quantile(arr, THR_QUANTILE))
+    model.score_hi = float(np.quantile(arr, 0.999)) * 1.2
+    _log(f"      良品异常强度：中位 {np.median(arr):.3f} · {int(THR_QUANTILE*1000)/10}% 分位 {model.thr:.3f}")
+    _log(f"      最终阈值 {model.thr:.3f}（良品误报按该分位控制）")
     _prog(92)
     return model
 
@@ -141,8 +193,7 @@ def score_map(img: np.ndarray, model: AnomalyModel) -> np.ndarray:
 
     grid = nn.reshape(gh, gw).astype(np.float32)
     full = cv2.resize(grid, (img.shape[1], img.shape[0]), interpolation=cv2.INTER_LINEAR)
-    full = cv2.GaussianBlur(full, (0, 0), 4.0)
-    return np.clip(full / max(model.score_hi, 1e-6), 0.0, 1.0)
+    return cv2.GaussianBlur(full, (0, 0), 4.0)      # 原始最近邻距离，不做自归一化
 
 
 def detect_unsup(img: np.ndarray, model: AnomalyModel, p) -> tuple[list, np.ndarray, np.ndarray]:
@@ -150,10 +201,10 @@ def detect_unsup(img: np.ndarray, model: AnomalyModel, p) -> tuple[list, np.ndar
     from .common import analyze_regions
 
     score = score_map(img, model)
-    thr_raw = model.thr / max(model.score_hi, 1e-6) if model.score_hi > 1 else model.thr
-    mask = (score >= thr_raw).astype(np.uint8) * 255
+    mask = (score >= model.thr).astype(np.uint8) * 255
     mask = cv2.morphologyEx(mask, cv2.MORPH_OPEN,
                             cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (3, 3)))
-    contrast = (score * 255.0).astype(np.uint8)
+    scale = max(model.score_hi, 1e-6)
+    contrast = np.clip(score / scale * 255.0, 0, 255).astype(np.uint8)
     regions = analyze_regions(mask, contrast, p)
     return regions, mask, contrast

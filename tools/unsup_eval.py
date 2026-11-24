@@ -21,13 +21,8 @@ OUT = ROOT / "out"
 
 
 def load_ok_images(index) -> list[np.ndarray]:
-    imgs = []
-    for item in index:
-        if item["ok"]:
-            img = cv2.imread(str(DATA / "images" / item["file"]), cv2.IMREAD_GRAYSCALE)
-            if img is not None:
-                imgs.append(img)
-    return imgs
+    """训练良品图：评测集 OK + data/train_ok 额外良品（训练集与评测集分离）。"""
+    return anomaly.load_train_goods(DATA)
 
 
 def main() -> None:

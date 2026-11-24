@@ -819,14 +819,7 @@ class App(tk.Tk):
             import time as _t
             t0 = _t.perf_counter()
             try:
-                index = metrics.load_index(ROOT / "data")
-                ok_imgs = []
-                for item in index:
-                    if item["ok"]:
-                        img = cv2.imread(str(ROOT / "data" / "images" / item["file"]),
-                                         cv2.IMREAD_GRAYSCALE)
-                        if img is not None:
-                            ok_imgs.append(img)
+                ok_imgs = anomaly.load_train_goods(ROOT / "data")
                 model = anomaly.train(ok_imgs, log=push, progress=set_pct)
                 push("[5/5] 保存模型 out/anomaly_model.npz")
                 model.save(str(ROOT / "out" / "anomaly_model.npz"))

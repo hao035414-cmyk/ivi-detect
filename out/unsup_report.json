@@ -1,19 +1,19 @@
 {
- "train_images": 36,
- "train_ms": 7339.2,
- "infer_ms": 189.6,
+ "train_images": 106,
+ "train_ms": 20806.4,
+ "infer_ms": 189.4,
  "bank": [
   12000,
   5
  ],
- "thr": 1.15,
+ "thr": 1.6004,
  "unsupervised": {
-  "precision": 0.8592,
-  "recall": 0.588,
-  "f1": 0.6982,
-  "miss_rate": 0.412,
+  "precision": 0.8757,
+  "recall": 0.5382,
+  "f1": 0.6667,
+  "miss_rate": 0.4618,
   "ok_false_alarm": 0.1389,
-  "avg_ms": 190.56
+  "avg_ms": 186.4
  },
  "improved": {
   "precision": 0.982,
@@ -21,15 +21,15 @@
   "f1": 0.943,
   "miss_rate": 0.093,
   "ok_false_alarm": 0.0,
-  "avg_ms": 33.87
+  "avg_ms": 33.49
  },
  "union": {
-  "precision": 0.9025,
-  "recall": 0.9535,
-  "f1": 0.9273,
-  "miss_rate": 0.0465,
+  "precision": 0.9231,
+  "recall": 0.9568,
+  "f1": 0.9396,
+  "miss_rate": 0.0432,
   "ok_false_alarm": 0.1389,
-  "avg_ms": 227.98
+  "avg_ms": 219.86
  },
  "per_type_unsup": null
 }
