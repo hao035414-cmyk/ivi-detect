@@ -771,13 +771,49 @@ class App(tk.Tk):
 
     # ------------------------------------------------------------ 批量评测
     def _train_unsup(self):
-        """用库内良品图重新训练无监督模型（后台线程，完成后热加载）。"""
+        """用库内良品图重新训练无监督模型：弹出过程窗口，逐步打印日志。"""
         if getattr(self, "_training", False):
             return
         self._training = True
+
+        dlg = tk.Toplevel(self)
+        dlg.title("训练无监督模型 · 过程")
+        dlg.geometry("660x430")
+        dlg.configure(bg=C["panel"])
+        dlg.transient(self)
+
+        tk.Label(dlg, text="只用良品图训练，不使用任何缺陷样本", bg=C["panel"],
+                 fg=C["text"], font=f(11, bold=True)).pack(anchor="w", padx=18, pady=(14, 2))
+        tk.Label(dlg, text="五步：载入良品图 → patch 特征 → 特征库 → 阈值校准 → 保存模型",
+                 bg=C["panel"], fg=C["muted"], font=f(9)).pack(anchor="w", padx=18)
+
+        pb = ttk.Progressbar(dlg, mode="determinate", maximum=100)
+        pb.pack(fill="x", padx=18, pady=(10, 8))
+
+        box = tk.Text(dlg, bg="#0F1724", fg="#D7E2F0", font=("Consolas", 9),
+                      relief="flat", padx=10, pady=8, height=14)
+        box.pack(fill="both", expand=True, padx=18, pady=(0, 8))
+        box.insert("end", "训练开始…\n")
+        box.configure(state="disabled")
+
+        foot = tk.Label(dlg, text="训练期间可继续看别的图，完成后自动加载新模型",
+                        bg=C["panel"], fg=C["muted"], font=f(9))
+        foot.pack(anchor="w", padx=18, pady=(0, 12))
+
+        def push(msg: str) -> None:
+            def _do():
+                box.configure(state="normal")
+                box.insert("end", msg + "\n")
+                box.see("end")
+                box.configure(state="disabled")
+            self.after(0, _do)
+
+        def set_pct(pct: float) -> None:
+            self.after(0, lambda: pb.configure(value=pct))
+
         self.progress.grid()
         self.progress["value"] = 0
-        self._status("训练中：只用良品图建立特征库，不要关窗口…")
+        self._status("训练中：只用良品图建立特征库…")
 
         def work():
             import time as _t
@@ -791,11 +827,14 @@ class App(tk.Tk):
                                          cv2.IMREAD_GRAYSCALE)
                         if img is not None:
                             ok_imgs.append(img)
-                model = anomaly.train(ok_imgs)
+                model = anomaly.train(ok_imgs, log=push, progress=set_pct)
+                push("[5/5] 保存模型 out/anomaly_model.npz")
                 model.save(str(ROOT / "out" / "anomaly_model.npz"))
                 ms = (_t.perf_counter() - t0) * 1000
+                push(f"完成：{len(ok_imgs)} 张良品 · {ms:.0f} ms · 特征库 {model.bank.shape[0]} 条 · 阈值 {model.thr:.3f}")
                 self.after(0, lambda: self._train_done(len(ok_imgs), ms, model, None))
             except Exception as exc:  # noqa: BLE001
+                push(f"失败：{exc}")
                 self.after(0, lambda: self._train_done(0, 0, None, exc))
 
         threading.Thread(target=work, daemon=True).start()
@@ -807,7 +846,7 @@ class App(tk.Tk):
             self._status(f"训练失败：{exc}")
             return
         self.unsup_model = model
-        self._status(f"训练完成：{n_ok} 张良品 · {ms:.1f} ms · 特征库 {model.bank.shape[0]} 条")
+        self._status(f"训练完成：{n_ok} 张良品 · {ms:.0f} ms · 特征库 {model.bank.shape[0]} 条")
         self._info(f"无监督模型已更新（本次训练 {ms:.0f} ms）\n"
                    f"训练样本：{n_ok} 张良品，未使用任何缺陷图\n"
                    f"特征：16×16 patch · 5 维统计量 · 库容量 {model.bank.shape[0]}\n"
