@@ -553,6 +553,9 @@ class App(tk.Tk):
     def _run(self):
         if self.img is None:
             return
+        # YOLO 档：先把模型加载完再开始计时，避免把 3.7 s 的加载算进单帧耗时
+        if self.mode == "detect" and self.algo == "yolo" and self.yolo is not None:
+            self.yolo._load()
         t0 = time.perf_counter()
         if self.mode == "detect":
             self._run_detect()
