@@ -26,7 +26,8 @@ from PIL import Image, ImageTk
 ROOT = Path(__file__).resolve().parent
 sys.path.insert(0, str(ROOT))
 
-from core import anomaly, baseline, improved, measure as measure_mod, metrics, ocr  # noqa: E402
+from core import (anomaly, baseline, classify, improved, measure as measure_mod,
+                  metrics, ocr, yolo_det)  # noqa: E402
 from core.common import Params, overlay  # noqa: E402
 from core.imageio import imread, imwrite  # noqa: E402
 from core.textdraw import get_font  # noqa: E402
@@ -159,6 +160,12 @@ class App(tk.Tk):
         self.mode = start_mode
         self.algo = start_algo
         self._training = False
+        self.yolo_weights = ROOT / "out" / "yolo_runs" / "yolo26n" / "weights" / "best.pt"
+        self.yolo = None
+        if yolo_det.YoloDetector.available(self.yolo_weights):
+            self.yolo = yolo_det.YoloDetector(self.yolo_weights)
+            # 后台预热：把 3.7 秒的加载与图优化挪到启动阶段，切档时不再卡
+            threading.Thread(target=lambda: self._warm_yolo(), daemon=True).start()
         self.unsup_model = None
         try:
             self.unsup_model = anomaly.AnomalyModel.load(str(ROOT / "out" / "anomaly_model.npz"))
@@ -270,9 +277,12 @@ class App(tk.Tk):
         c2 = Card(wrap, "算法方案")
         self.card_algo = c2
         c2.grid(row=1, column=0, sticky="ew", pady=(10, 0))
-        opts = [("improved", "规则链路"), ("unsup", "无监督"), ("baseline", "基线 Otsu")]
+        opts = [("improved", "规则链路"), ("unsup", "无监督"), ("yolo", "YOLO"),
+                ("baseline", "基线 Otsu")]
         if self.unsup_model is None:
             opts = [o for o in opts if o[0] != "unsup"]
+        if self.yolo is None:
+            opts = [o for o in opts if o[0] != "yolo"]
         self.seg_algo = Seg(c2.body, opts, self._on_algo, self.algo)
         self.seg_algo.pack(fill="x")
         self.lbl_algo_note = tk.Label(c2.body, text="光照归一化 + 双频通道 + 代价阈值",
@@ -492,6 +502,7 @@ class App(tk.Tk):
         self.lbl_algo_note.configure(
             text="光照归一化 + 双频通道 + 代价阈值" if algo == "improved"
             else "良品特征库 kNN 距离 · 无需标注" if algo == "unsup"
+            else "YOLO26n 对照档 · mAP50 0.952 · 需 2.5 GB 依赖" if algo == "yolo"
             else "全局 Otsu 阈值 + 形态学（对照基线）")
         self._run()
 
@@ -562,6 +573,8 @@ class App(tk.Tk):
         scaled = False
         if self.algo == "unsup" and self.unsup_model is not None:
             regs, mask, contrast = anomaly.detect_unsup(img, self.unsup_model, p)
+        elif self.algo == "yolo" and self.yolo is not None:
+            regs, mask, contrast = self.yolo.detect(img, p)
         elif self.algo == "baseline":
             regs, mask, contrast = baseline.detect(img, Params(**{**p.__dict__}))
         else:
@@ -569,6 +582,15 @@ class App(tk.Tk):
             scaled = abs(p.px_per_mm / improved.CANONICAL_PX_PER_MM - 1.0) > 0.2
             fn = improved.detect_adaptive if scaled else improved.detect
             regs, mask, contrast = fn(img, p)
+
+        # 统一补缺陷类型：基线、无监督两条链路原本没挂分类
+        for r in regs:
+            if not r.kind:
+                try:
+                    feat = classify.region_features(r, contrast, mask, p.px_per_mm)
+                    r.kind = classify.classify(feat)
+                except Exception:
+                    r.kind = ""
 
         vis = overlay(img, regs)
         contrast_vis = cv2.applyColorMap(
@@ -601,7 +623,7 @@ class App(tk.Tk):
 
         total = sum(r.area_mm2 for r in regs)
         algo_cn = {"improved": "规则链路", "unsup": "无监督（良品训练）",
-                   "baseline": "基线 Otsu"}.get(self.algo, self.algo)
+                   "yolo": "YOLO26n（对照档）", "baseline": "基线 Otsu"}.get(self.algo, self.algo)
         scale_note = "｜已启用尺度归一化（按标定重采样到 12 px/mm）" if scaled else ""
         self._info(f"方案：{algo_cn}{scale_note}\n"
                    f"检出 {n} 处，总面积 {total:.2f} mm²，最大 {max([r.area_mm2 for r in regs], default=0):.2f} mm²\n"
@@ -771,6 +793,12 @@ class App(tk.Tk):
         self._run()
 
     # ------------------------------------------------------------ 批量评测
+    def _warm_yolo(self):
+        try:
+            self.yolo._load()
+        except Exception:
+            pass
+
     def _train_unsup(self):
         """用库内良品图重新训练无监督模型：弹出过程窗口，逐步打印日志。"""
         if getattr(self, "_training", False):
@@ -961,7 +989,7 @@ def main():
     ap.add_argument("--shot", default=None)
     ap.add_argument("--image", default=None)
     ap.add_argument("--mode", default="detect", choices=["detect", "ocr", "measure"])
-    ap.add_argument("--algo", default="improved", choices=["improved", "unsup", "baseline"])
+    ap.add_argument("--algo", default="improved", choices=["improved", "unsup", "yolo", "baseline"])
     args = ap.parse_args()
     _enable_dpi()
     app = App(shot=args.shot, start_image=args.image, start_mode=args.mode,
